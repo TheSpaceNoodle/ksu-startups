@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ksu-startups": {
+      "hosting": {
+        "ksu-startups": [
+          "ksu-startups"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ksu-startups"
+  }
+}
