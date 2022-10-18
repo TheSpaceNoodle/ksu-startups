@@ -11,12 +11,7 @@ body {
 body {
   font-family: "League Spartan", sans-serif;
   font-weight: 400;
-  width: 100vw;
-  height: 100vh;
-  background-color: #fffe00;
-  background-image: url("assets/somefigure.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  margin: 0;
   overflow: hidden;
 }
