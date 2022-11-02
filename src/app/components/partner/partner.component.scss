@@ -1,0 +1,39 @@
+.partner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 40px;
+
+  .partner-photo-wrapper {
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 2px 4px 3px rgba(113, 160, 235, 0.4);
+  }
+
+  .partner-info {
+    width: 80%;
+
+    h1 {
+      color: #6aa3ff;
+      text-shadow: 0px 1px 4px #71a0eb;
+      font-weight: 600;
+      font-size: 40px;
+      line-height: 37px;
+      margin-bottom: 40px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 22px;
+      margin-left: 27px;
+    }
+
+    p:nth-child(2) {
+      margin-bottom: 50px;
+    }
+  }
+}

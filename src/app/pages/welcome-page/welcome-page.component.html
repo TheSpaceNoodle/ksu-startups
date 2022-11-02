@@ -32,7 +32,7 @@
         </div>
       </div>
       <div id="guide">
-        <div class="about-heading">how use platform</div>
+        <p class="about-heading">how use this platform</p>
         <p>Register yourself</p>
         <div>
           <img src="./assets/steps.svg" alt="stepper" />
@@ -44,54 +44,69 @@
         </div>
       </div>
     </div>
-    <button>Start now</button>
+    <button class="highlight">Start now</button>
   </div>
 </header>
 
 <section id="partnership">
-  <h1 class="heading">Partnership</h1>
-  <app-partner
-    *ngFor="let partner of partners"
-    [partner]="partner"
-  ></app-partner>
-  <h2>
-    Want to become our partner? Then
-    <span class="highlight">contact us</span>!
-  </h2>
+  <div class="section-content">
+    <h1 class="heading">Partnership</h1>
+    <app-partner
+      *ngFor="let partner of partners"
+      [partner]="partner"
+    ></app-partner>
+    <h2>
+      Want to become our partner? Then
+      <a href="#contacts" class="highlight">contact us</a>!
+    </h2>
+  </div>
 </section>
 
 <section id="benefits">
-  <div class="benefit">
-    <img src="./assets/icons/support.svg" alt="" />
-    <p>Nearly instant support</p>
+  <div class="section-content">
+    <h1 class="heading">Partnership</h1>
+    <div class="benefit-list">
+      <div class="benefit">
+        <img src="./assets/icons/support.svg" alt="" />
+        <p>Nearly instant support</p>
+      </div>
+      <div class="benefit">
+        <img src="./assets/icons/reliability.svg" alt="" />
+        <p>Reliability</p>
+      </div>
+      <div class="benefit">
+        <img src="./assets/icons/new-ideas.svg" alt="" />
+        <p>Constant flow of new ideas</p>
+      </div>
+    </div>
+    <button>Ready to start?</button>
   </div>
-  <div class="benefit">
-    <img src="./assets/icons/reliability.svg" alt="" />
-    <p>Reliability</p>
-  </div>
-  <div class="benefit">
-    <img src="./assets/icons/new-ideas.svg" alt="" />
-    <p>Constant flow of new ideas</p>
-  </div>
-
-  <button>Ready to start?</button>
 </section>
 
 <section id="contacts">
-  <a href="tel: +380000000000" class="contact">
-    <img src="./assets/contacts/phone.svg" alt="phone" />
-    <p>+380000000000</p>
-  </a>
-  <a href="mailto: someEmail@gmail.com" class="contact">
-    <img src="./assets/contacts/email.svg" alt="email" />
-    <p>someEmail@gmail.com</p>
-  </a>
-  <a href="https://github.com/SheogorathD" class="contact">
-    <img src="./assets/contacts/github.svg" alt="github" />
-    <p>@SheogorathD</p>
-  </a>
-  <a href="https://www.kspu.edu" class="contact">
-    <img src="./assets/contacts/uni.svg" alt="university" />
-    <p>kspu.edu</p>
-  </a>
+  <div class="section-content">
+    <h1 class="heading">Contacts</h1>
+    <div class="contacts-list">
+      <div class="first">
+        <a href="tel: +380000000000" class="contact">
+          <img src="./assets/contacts/phone.svg" alt="phone" />
+          <p>+380000000000</p>
+        </a>
+        <a href="mailto: someEmail@gmail.com" class="contact">
+          <img src="./assets/contacts/email.svg" alt="email" />
+          <p>someEmail@gmail.com</p>
+        </a>
+        <a href="https://github.com/SheogorathD" class="contact">
+          <img src="./assets/contacts/github.svg" alt="github" />
+          <p>@SheogorathD</p>
+        </a>
+      </div>
+      <div class="second">
+        <a href="https://www.kspu.edu" class="contact">
+          <img src="./assets/contacts/uni.svg" alt="university" />
+          <p>kspu.edu</p>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
