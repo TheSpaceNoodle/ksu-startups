@@ -9,6 +9,15 @@ const routes: Routes = [
         (m) => m.WelcomePageModule
       ),
   },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/auth-page/auth-page.module').then(
+        (m) => m.AuthPageModule
+      ),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: !loggedIn },
+  },
 ];
 
 @NgModule({

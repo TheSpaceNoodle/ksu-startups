@@ -1,1 +1,12 @@
-<p>auth-page works!</p>
+<div id="auth-page">
+  <h1>Auth with</h1>
+  <div id="buttons">
+    <button (click)="login()">
+      <img src="/assets/icons/google.svg" alt="google ico" />Google
+    </button>
+    <button (click)="login()" disabled>
+      <img src="/assets/icons/microsoft.svg" alt="microsoft ico" />Microsoft
+    </button>
+  </div>
+  <p>Microsoft auth is unavialable at the time</p>
+</div>

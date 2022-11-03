@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-page',
@@ -7,7 +8,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPageComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
+
+  login() {
+    this.authService.login();
+  }
 
   ngOnInit(): void {}
 }

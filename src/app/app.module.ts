@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import {
   getAnalytics,
   provideAnalytics,
@@ -9,6 +8,7 @@ import {
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
@@ -29,7 +29,11 @@ import { SharedModule } from './components/shared.module';
     provideFirestore(() => getFirestore()),
     StoreModule.forRoot({}, {}),
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
