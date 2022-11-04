@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { deleteUser, getAuth } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 
@@ -12,7 +13,19 @@ export class AuthService {
     this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((data) => {
-        console.log(data);
+        const user = getAuth().currentUser;
+        if (user) {
+          if (!data.user?.email?.includes('@ksu.ks.ua')) {
+            deleteUser(user).then(() => {
+              console.log('no access for this domain');
+            });
+          } else {
+          }
+        }
       });
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 }
