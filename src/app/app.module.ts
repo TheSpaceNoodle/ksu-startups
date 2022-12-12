@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   getAnalytics,
   provideAnalytics,
@@ -10,12 +9,14 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SharedModule } from './components/shared.module';
+import { userReducer } from './state/reducers/';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -27,7 +28,7 @@ import { SharedModule } from './components/shared.module';
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ user: userReducer }, {}),
   ],
   providers: [
     ScreenTrackingService,
