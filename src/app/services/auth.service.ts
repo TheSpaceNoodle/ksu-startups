@@ -15,11 +15,11 @@ export class AuthService {
       .then((data) => {
         const user = getAuth().currentUser;
         if (user) {
+          console.log(user);
           if (!data.user?.email?.includes('@ksu.ks.ua')) {
             deleteUser(user).then(() => {
               console.log('no access for this domain');
             });
-          } else {
           }
         }
       });

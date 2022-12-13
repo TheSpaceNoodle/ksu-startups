@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SharedModule } from './components/shared.module';
-import { userReducer } from './state/reducers/';
+import { userReducer } from './state/';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
