@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SharedModule } from './components/shared.module';
 import { userReducer } from './state/';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -29,6 +30,7 @@ import { userReducer } from './state/';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     StoreModule.forRoot({ user: userReducer }, {}),
+    EffectsModule.forRoot([]),
   ],
   providers: [
     ScreenTrackingService,

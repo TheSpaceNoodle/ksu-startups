@@ -10,15 +10,21 @@ export const initialState: User = {
     createdAt: new Date(0),
     lastSignIn: new Date(),
   },
+  error: null,
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.logIn, (state, { user }) => ({
+  on(UserActions.logIn, (state) => ({ ...state })),
+  on(UserActions.logInSuccess, (state, { user }) => ({
     displayName: user.displayName,
     email: user.email,
     uid: user.uid,
     metadata: user.metadata,
-    photoUrl: user?.photoUrl,
+    error: null,
+  })),
+  on(UserActions.logInFailed, (state, { error }) => ({
+    ...state,
+    error: error,
   }))
 );

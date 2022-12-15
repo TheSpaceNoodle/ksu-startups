@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { deleteUser, getAuth } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private readonly auth: AngularFireAuth) {}
+  constructor(
+    private readonly auth: AngularFireAuth,
+    private afs: AngularFirestore
+  ) {}
 
   login() {
+    // dont forget to rewrite db usage rules to restrict access from outer domains
+    let userUid = '';
     this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((data) => {
-        const user = getAuth().currentUser;
-        if (user) {
-          console.log(user);
-          if (!data.user?.email?.includes('@ksu.ks.ua')) {
-            deleteUser(user).then(() => {
-              console.log('no access for this domain');
-            });
-          }
+        if (data.user?.uid) {
+          userUid = data.user.uid;
         }
+      })
+      .catch((error) => {
+        throw new Error(error);
       });
+    return userUid;
   }
 
   logout() {

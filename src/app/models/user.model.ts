@@ -4,6 +4,7 @@ export interface User {
   photoUrl?: string;
   uid: string;
   metadata: UserMetadata;
+  error: string | null;
 }
 
 interface UserMetadata {
