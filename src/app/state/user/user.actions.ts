@@ -1,10 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from 'src/app/models';
 
 export const logIn = createAction('[Auth Page] LogIn');
 export const logInSuccess = createAction(
   '[Auth Page] LogInSuccess',
-  props<{ user: User }>()
+  props<{ uid: string }>()
 );
 export const logInFailed = createAction(
   '[Auth Page] LogInFailed',

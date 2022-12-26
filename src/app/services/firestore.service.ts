@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+// import { Injectable } from '@angular/core';
+// import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class FirestoreService {
-  constructor(private readonly afs: AngularFirestore) {}
+// // create a base function to retrieve data
+// // create a separated functions to retrieve data from collections and storages using base function
 
-  setUserData() {}
-}
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class FirestoreService {
+//   constructor(private readonly afs: AngularFirestore) {}
+
+//   setUserData() {}
+// }

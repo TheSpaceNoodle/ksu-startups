@@ -1,27 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
-import { User } from 'src/app/models';
 import * as UserActions from './user.actions';
 
-export const initialState: User = {
-  displayName: '',
-  email: '',
+export interface AuthState {
+  uid: string;
+  error: string;
+  loading: boolean;
+}
+
+const initialState: AuthState = {
   uid: '',
-  metadata: {
-    createdAt: new Date(0),
-    lastSignIn: new Date(),
-  },
-  error: null,
+  error: '',
+  loading: false,
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.logIn, (state) => ({ ...state })),
-  on(UserActions.logInSuccess, (state, { user }) => ({
-    displayName: user.displayName,
-    email: user.email,
-    uid: user.uid,
-    metadata: user.metadata,
-    error: null,
+  on(UserActions.logIn, (state) => ({ ...state, loading: true })),
+  on(UserActions.logInSuccess, (state, { uid }) => ({
+    ...state,
+    uid: uid,
   })),
   on(UserActions.logInFailed, (state, { error }) => ({
     ...state,
