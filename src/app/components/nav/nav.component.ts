@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
+import { selectUser } from '../../state/user/user.selectors';
 
 @Component({
   selector: 'app-nav',
@@ -7,7 +10,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent implements OnInit {
-  constructor() {}
+  authState$: any = this.store.select(selectUser);
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {}
 }

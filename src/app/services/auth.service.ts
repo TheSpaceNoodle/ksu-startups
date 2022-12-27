@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { setPersistence } from '@angular/fire/auth';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat/app';
-import { AuthState, logIn } from '../state';
+import { AppState } from '../state/app.state';
+import { FirestoreService } from './firestore.service';
 
 // TODO:
 // add check to the database if the user is in it
@@ -17,9 +17,16 @@ import { AuthState, logIn } from '../state';
 export class AuthService {
   constructor(
     private readonly auth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private store: Store<AuthState>
+    private store: Store<AppState>,
+    private fs: FirestoreService
   ) {}
+
+  checkSignedUser() {
+    onAuthStateChanged(getAuth(), (user) => {
+      console.log(user);
+      // this.store.dispatch(logInSuccess({}));
+    });
+  }
 
   login() {
     // dont forget to rewrite db usage rules to restrict access from outer domains
@@ -29,6 +36,12 @@ export class AuthService {
       .then((data) => {
         if (data.user?.uid) {
           userUid = data.user.uid;
+          if (data.user && !this.fs.doUserExists(data.user.uid)) {
+            this.fs.setUserData(data.user.uid, {
+              uid: data.user.uid,
+              displayName: data.user.displayName,
+            });
+          }
         }
       })
       .catch((error) => {

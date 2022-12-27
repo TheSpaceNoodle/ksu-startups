@@ -18,6 +18,15 @@ const routes: Routes = [
     // canActivate: [AngularFireAuthGuard],
     // data: { authGuardPipe: !loggedIn },
   },
+  {
+    path: 'startups',
+    loadChildren: () =>
+      import('./pages/startups-page/startups-page.module').then(
+        (m) => m.StartupsPageModule
+      ),
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: !loggedIn },
+  },
 ];
 
 @NgModule({

@@ -18,5 +18,9 @@ export class UserEffects {
     )
   );
 
+  // getUser$ = createEffect(() =>
+  //   this.actions$.pipe(ofType(UserActions.logInSuccess), switchMap(() =>))
+  // );
+
   constructor(private actions$: Actions, private authService: AuthService) {}
 }

@@ -20,6 +20,10 @@ export class AuthPageComponent implements OnInit {
     this.store.dispatch(logIn());
   }
 
+  logOut() {
+    this.authService.logout();
+  }
+
   ngOnInit(): void {
     onAuthStateChanged(getAuth(), (user) => {
       console.log(user?.uid);
