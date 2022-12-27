@@ -3,6 +3,8 @@ import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat/app';
+import { take } from 'rxjs';
+import { User } from '../state';
 import { AppState } from '../state/app.state';
 import { FirestoreService } from './firestore.service';
 
@@ -28,20 +30,43 @@ export class AuthService {
     });
   }
 
+  async setUserData(userData: User, userDataInput: firebase.User) {
+    let exists = await this.fs.doUserExists(userDataInput.uid);
+    if (userDataInput && !exists) {
+      if (
+        userDataInput.displayName &&
+        userDataInput.email &&
+        userDataInput.photoURL
+      )
+        userData = {
+          displayName: userDataInput.displayName,
+          email: userDataInput.email,
+          photoURL: userDataInput.photoURL,
+          uid: userDataInput.uid,
+        };
+      this.fs.setUserData(userDataInput.uid, userData);
+      console.log('set');
+    } else if (userDataInput && exists) {
+      this.fs
+        .getUserData(userDataInput.uid)
+        .pipe(take(1))
+        .subscribe((data) => (data ? (userData = data) : ''));
+      console.log('get');
+    }
+    return userData;
+  }
+
   login() {
     // dont forget to rewrite db usage rules to restrict access from outer domains
     let userUid = '';
+    let userData: User;
     this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then((data) => {
+      .then(async (data) => {
         if (data.user?.uid) {
+          const userDataInput = data.user;
           userUid = data.user.uid;
-          if (data.user && !this.fs.doUserExists(data.user.uid)) {
-            this.fs.setUserData(data.user.uid, {
-              uid: data.user.uid,
-              displayName: data.user.displayName,
-            });
-          }
+          userData = await this.setUserData(userData, userDataInput);
         }
       })
       .catch((error) => {

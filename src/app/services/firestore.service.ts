@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { take } from 'rxjs';
+import { firstValueFrom, take } from 'rxjs';
 import { User } from '../state';
 
 // create a base function to retrieve data
@@ -12,7 +12,7 @@ import { User } from '../state';
 export class FirestoreService {
   constructor(private readonly afs: AngularFirestore) {}
 
-  setUserData(uid: string, user: any) {
+  setUserData(uid: string, user: User) {
     this.afs.doc<User>(`users/${uid}`).set(user);
   }
 
@@ -20,11 +20,11 @@ export class FirestoreService {
     return this.afs.doc<User>(`users/${uid}`).valueChanges();
   }
 
-  doUserExists(uid: string): boolean {
-    let accountExists = false;
-    this.getUserData(uid)
-      .pipe(take(1))
-      .subscribe((data) => (accountExists = data == undefined));
-    return accountExists;
+  async doUserExists(uid: string) {
+    let userExists = false;
+    await firstValueFrom(this.getUserData(uid).pipe(take(1))).then((data) => {
+      userExists = data != undefined;
+    });
+    return userExists;
   }
 }
