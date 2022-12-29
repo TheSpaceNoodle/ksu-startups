@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Partner } from 'src/app/models/partner.model';
+import { Partner } from 'src/app/models';
 
 @Component({
   selector: 'app-partner',

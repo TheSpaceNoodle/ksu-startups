@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/state';
+import { Observable, take } from 'rxjs';
+import { logIn, setStuff } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
-import { selectUserData } from 'src/app/state/user/user.selectors';
 
 @Component({
   selector: 'app-nav',
@@ -12,13 +11,22 @@ import { selectUserData } from 'src/app/state/user/user.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent implements OnInit {
-  user$!: Observable<User>;
+  user$!: Observable<any>;
 
   constructor(private store: Store<AppState>) {
-    this.user$ = store.select(selectUserData);
+    this.user$ = store.select('authState');
+  }
+
+  showState() {
+    this.user$.pipe(take(1)).subscribe((data) => console.log(data));
+  }
+
+  initializeState() {
+    this.store.dispatch(setStuff());
   }
 
   ngOnInit(): void {
-    this.user$.subscribe((data) => console.log(data));
+    // this.user$.subscribe((data) => console.log(data));
+    this.store.dispatch(logIn());
   }
 }

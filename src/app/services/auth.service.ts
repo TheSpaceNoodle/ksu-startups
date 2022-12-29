@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat/app';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { User } from '../state';
 import { AppState } from '../state/app.state';
 import { FirestoreService } from './firestore.service';
@@ -23,14 +22,11 @@ export class AuthService {
     private fs: FirestoreService
   ) {}
 
-  checkSignedUser() {
-    onAuthStateChanged(getAuth(), (user) => {
-      console.log(user);
-      // this.store.dispatch(logInSuccess({}));
-    });
+  checkSignedUser(): Observable<firebase.User | null> {
+    return this.auth.user;
   }
 
-  async setUserData(userData: User, userDataInput: firebase.User) {
+  async setUserData(userDataInput: firebase.User) {
     let exists = await this.fs.doUserExists(userDataInput.uid);
     if (userDataInput && !exists) {
       if (
@@ -38,42 +34,31 @@ export class AuthService {
         userDataInput.email &&
         userDataInput.photoURL
       )
-        userData = {
+        this.fs.setUserData(userDataInput.uid, {
           displayName: userDataInput.displayName,
           email: userDataInput.email,
           photoURL: userDataInput.photoURL,
           uid: userDataInput.uid,
-        };
-
-      this.fs.setUserData(userDataInput.uid, userData);
-      console.log('set', userData);
+        });
     }
   }
 
-  async login() {
+  login() {
     // dont forget to rewrite db usage rules to restrict access from outer domains
     let userUid = '';
-    let userData: User = {
-      displayName: 'asdasdasd',
-      email: 'asdasads',
-      photoURL: 'asdasdads',
-      uid: 'asdsadsa',
-    };
-    this.auth
+    return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(async (data) => {
         if (data.user?.uid) {
           const userDataInput = data.user;
           userUid = data.user.uid;
-          await this.setUserData(userData, userDataInput);
+          await this.setUserData(userDataInput);
         }
         return (await firstValueFrom(this.fs.getUserData(userUid))) as User;
       })
       .catch((error) => {
         throw new Error(error);
       });
-    console.log(userData);
-    return userData;
   }
 
   logout() {

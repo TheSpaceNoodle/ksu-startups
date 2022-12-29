@@ -20,10 +20,10 @@ export interface AuthState {
 
 const initialState: AuthState = {
   user: {
-    displayName: '',
-    email: '',
-    photoURL: '',
-    uid: '',
+    displayName: 'asd',
+    email: 'asd',
+    photoURL: 'dg',
+    uid: 'asd',
   },
   uid: null,
   error: null,
@@ -32,6 +32,7 @@ const initialState: AuthState = {
 
 export const userReducer = createReducer(
   initialState,
+  on(UserActions.getUser, (state) => ({ ...state, loading: true })),
   on(UserActions.logIn, (state) => ({ ...state, loading: true })),
   on(UserActions.logInSuccess, (state, { user }) => ({
     ...state,
@@ -42,5 +43,9 @@ export const userReducer = createReducer(
     ...state,
     error: error,
     loading: false,
+  })),
+  on(UserActions.setStuff, (state) => ({
+    ...state,
+    user: { displayName: 'asd', email: 'asd', photoURL: 'dg', uid: 'asd' },
   }))
 );
