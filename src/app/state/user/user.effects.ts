@@ -4,6 +4,7 @@ import { catchError, from, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as UserActions from './user.actions';
+import { User } from './user.reducer';
 
 @Injectable()
 export class UserEffects {
@@ -28,13 +29,7 @@ export class UserEffects {
             if (data) {
               this.fs.getUserData(data.uid).pipe(
                 map((user) => {
-                  if (user) {
-                    return UserActions.logInSuccess({ user: user });
-                  } else {
-                    return UserActions.logInFailed({
-                      error: 'no such user in the db',
-                    });
-                  }
+                  return UserActions.logInSuccess({ user: user as User });
                 })
               );
             }

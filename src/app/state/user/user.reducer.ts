@@ -1,36 +1,27 @@
-import { createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as UserActions from './user.actions';
 
 export interface User {
   displayName: string;
   email: string;
-  metadata?: {
-    creationTime?: string;
-    lalastSignInTimest?: string;
-  };
   photoURL: string;
   uid: string;
 }
 export interface AuthState {
-  user: User;
+  user: User | null;
   uid: string | null;
   error: string | null;
   loading: boolean;
 }
 
 const initialState: AuthState = {
-  user: {
-    displayName: 'asd',
-    email: 'asd',
-    photoURL: 'dg',
-    uid: 'asd',
-  },
+  user: null,
   uid: null,
   error: null,
   loading: false,
 };
 
-export const userReducer = createReducer(
+const _userReducer = createReducer(
   initialState,
   on(UserActions.getUser, (state) => ({ ...state, loading: true })),
   on(UserActions.logIn, (state) => ({ ...state, loading: true })),
@@ -38,6 +29,7 @@ export const userReducer = createReducer(
     ...state,
     user: user,
     loading: false,
+    error: null,
   })),
   on(UserActions.logInFailed, (state, { error }) => ({
     ...state,
@@ -46,6 +38,14 @@ export const userReducer = createReducer(
   })),
   on(UserActions.setStuff, (state) => ({
     ...state,
-    user: { displayName: 'asd', email: 'asd', photoURL: 'dg', uid: 'asd' },
+    user: {
+      displayName: 'suck',
+      email: 'my',
+      photoURL: 'huge',
+      uid: 'cock',
+    },
   }))
 );
+
+export const userReducer = (state: AuthState | undefined, action: Action) =>
+  _userReducer(state, action);

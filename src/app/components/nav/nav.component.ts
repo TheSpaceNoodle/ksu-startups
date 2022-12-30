@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
-import { logIn, setStuff } from 'src/app/state';
+import { selectUser, setStuff } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
@@ -13,9 +13,7 @@ import { AppState } from 'src/app/state/app.state';
 export class NavComponent implements OnInit {
   user$!: Observable<any>;
 
-  constructor(private store: Store<AppState>) {
-    this.user$ = store.select('authState');
-  }
+  constructor(private store: Store<AppState>) {}
 
   showState() {
     this.user$.pipe(take(1)).subscribe((data) => console.log(data));
@@ -26,7 +24,8 @@ export class NavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.user$.subscribe((data) => console.log(data));
-    this.store.dispatch(logIn());
+    this.user$ = this.store.select(selectUser);
+    this.user$.subscribe((data) => console.log(data));
+    // this.store.dispatch(logIn());
   }
 }

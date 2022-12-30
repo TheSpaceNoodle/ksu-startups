@@ -7,14 +7,12 @@ import { PERSISTENCE } from '@angular/fire/compat/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { BrowserModule } from '@angular/platform-browser';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SharedModule } from './components/shared.module';
-import { UserEffects, userReducer } from './state/';
+import { AppStoreModule } from './state/app-state.module';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
@@ -22,12 +20,11 @@ import { UserEffects, userReducer } from './state/';
     SharedModule,
     BrowserModule,
     AppRoutingModule,
+    AppStoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    StoreModule.forRoot({ user: userReducer }, {}),
-    EffectsModule.forRoot([UserEffects]),
     provideStorage(() => getStorage()),
   ],
   providers: [
