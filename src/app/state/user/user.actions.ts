@@ -12,4 +12,3 @@ export const logInFailed = createAction(
   props<{ error: string }>()
 );
 export const logOut = createAction('[Auth Page] LogOut');
-export const setStuff = createAction('[Auth Page] setStuff');

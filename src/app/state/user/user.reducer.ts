@@ -6,6 +6,7 @@ export interface User {
   email: string;
   photoURL: string;
   uid: string;
+  role: string[];
 }
 export interface AuthState {
   user: User | null;
@@ -35,15 +36,6 @@ const _userReducer = createReducer(
     ...state,
     error: error,
     loading: false,
-  })),
-  on(UserActions.setStuff, (state) => ({
-    ...state,
-    user: {
-      displayName: 'suck',
-      email: 'my',
-      photoURL: 'huge',
-      uid: 'cock',
-    },
   }))
 );
 

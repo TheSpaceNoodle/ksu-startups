@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthState, logIn } from 'src/app/state';
@@ -24,9 +23,5 @@ export class AuthPageComponent implements OnInit {
     this.authService.logout();
   }
 
-  ngOnInit(): void {
-    onAuthStateChanged(getAuth(), (user) => {
-      console.log(user?.uid);
-    });
-  }
+  ngOnInit(): void {}
 }
