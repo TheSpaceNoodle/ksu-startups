@@ -43,7 +43,7 @@ export class AuthService {
           email: userDataInput.email,
           photoURL: userDataInput.photoURL,
           uid: userDataInput.uid,
-          role: [],
+          roles: [],
         });
     }
   }

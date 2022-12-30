@@ -6,7 +6,7 @@ export interface User {
   email: string;
   photoURL: string;
   uid: string;
-  role: string[];
+  roles: string[];
 }
 export interface AuthState {
   user: User | null;
