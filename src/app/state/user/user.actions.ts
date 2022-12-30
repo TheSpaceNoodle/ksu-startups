@@ -5,7 +5,7 @@ export const getUser = createAction('[App] getUser');
 export const logIn = createAction('[Auth Page] LogIn');
 export const logInSuccess = createAction(
   '[Auth Page] LogInSuccess',
-  props<{ user: User }>()
+  props<{ user: User | null }>()
 );
 export const logInFailed = createAction(
   '[Auth Page] LogInFailed',

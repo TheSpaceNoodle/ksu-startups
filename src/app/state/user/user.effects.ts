@@ -4,7 +4,6 @@ import { catchError, from, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import * as UserActions from './user.actions';
-import { User } from './user.reducer';
 
 @Injectable()
 export class UserEffects {
@@ -24,16 +23,15 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.getUser),
       switchMap(() =>
-        this.authService.checkSignedUser().pipe(
-          map((data) => {
-            if (data) {
-              this.fs.getUserData(data.uid).pipe(
-                map((user) => {
-                  return UserActions.logInSuccess({ user: user as User });
-                })
-              );
+        from(this.authService.checkSignedUser()).pipe(
+          map((user) => {
+            if (user) {
+              /// User logged in
+              return UserActions.logInSuccess({ user: user });
+            } else {
+              /// User not logged in
+              return UserActions.logInFailed({ error: 'failed' });
             }
-            return UserActions.logInFailed({ error: 'no user logged in' });
           })
         )
       )

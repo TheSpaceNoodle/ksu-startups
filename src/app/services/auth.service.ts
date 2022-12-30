@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat/app';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { User } from '../state';
-import { AppState } from '../state/app.state';
 import { FirestoreService } from './firestore.service';
 
 // TODO:
@@ -16,14 +14,20 @@ import { FirestoreService } from './firestore.service';
   providedIn: 'root',
 })
 export class AuthService {
+  currentUserUid: string | null = null;
+
   constructor(
     private readonly auth: AngularFireAuth,
-    private store: Store<AppState>,
     private fs: FirestoreService
   ) {}
 
-  checkSignedUser(): Observable<firebase.User | null> {
-    return this.auth.user;
+  async checkSignedUser(): Promise<User | null> {
+    return firstValueFrom(this.auth.user).then(async (data) => {
+      if (data && data.uid) {
+        return (await firstValueFrom(this.fs.getUserData(data.uid))) as User;
+      }
+      return null;
+    });
   }
 
   async setUserData(userDataInput: firebase.User) {
@@ -50,9 +54,8 @@ export class AuthService {
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(async (data) => {
         if (data.user?.uid) {
-          const userDataInput = data.user;
           userUid = data.user.uid;
-          await this.setUserData(userDataInput);
+          await this.setUserData(data.user);
         }
         return (await firstValueFrom(this.fs.getUserData(userUid))) as User;
       })
