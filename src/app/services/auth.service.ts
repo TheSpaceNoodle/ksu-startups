@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { firstValueFrom } from 'rxjs';
 import { User } from '../state';
@@ -18,7 +19,8 @@ export class AuthService {
 
   constructor(
     private readonly auth: AngularFireAuth,
-    private fs: FirestoreService
+    private fs: FirestoreService,
+    private router: Router
   ) {}
 
   async checkSignedUser(): Promise<User | null> {
@@ -58,6 +60,7 @@ export class AuthService {
           userUid = data.user.uid;
           await this.setUserData(data.user);
         }
+        this.router.navigateByUrl('/startups');
         return (await firstValueFrom(this.fs.getUserData(userUid))) as User;
       })
       .catch((error) => {
@@ -66,6 +69,6 @@ export class AuthService {
   }
 
   logout() {
-    this.auth.signOut();
+    return this.auth.signOut();
   }
 }

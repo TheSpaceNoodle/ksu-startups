@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from './services/auth.service';
 import { getUser } from './state';
 
 @Component({
@@ -12,7 +12,13 @@ import { getUser } from './state';
 export class AppComponent implements OnInit {
   title = 'KSU Startups';
 
-  constructor(private authService: AuthService, private store: Store) {}
+  constructor(private router: Router, private store: Store) {}
+
+  showNav() {
+    if (this.router.url === '/auth' || this.router.url === '/welcome')
+      return false;
+    return true;
+  }
 
   ngOnInit(): void {
     this.store.dispatch(getUser());

@@ -13,9 +13,10 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { SharedModule } from './components/shared.module';
 import { AppStoreModule } from './state/app-state.module';
+import { StartupPageComponent } from './pages/startup-page/startup-page.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent],
+  declarations: [AppComponent, NavComponent, StartupPageComponent],
   imports: [
     SharedModule,
     BrowserModule,

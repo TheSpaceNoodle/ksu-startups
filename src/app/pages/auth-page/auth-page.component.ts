@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/services/auth.service';
-import { AuthState, logIn } from 'src/app/state';
+import { AuthState, logIn, logOut } from 'src/app/state';
 
 @Component({
   selector: 'app-auth-page',
@@ -10,17 +9,14 @@ import { AuthState, logIn } from 'src/app/state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPageComponent implements OnInit {
-  constructor(
-    private authService: AuthService,
-    private store: Store<AuthState>
-  ) {}
+  constructor(private store: Store<AuthState>) {}
 
   login() {
     this.store.dispatch(logIn());
   }
 
   logOut() {
-    this.authService.logout();
+    this.store.dispatch(logOut());
   }
 
   ngOnInit(): void {}
