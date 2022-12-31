@@ -1,19 +1,42 @@
 <div id="nav-container">
-  <ng-container *ngIf="user$ | async as user">
-    <div id="user-info">
-      <div id="photo-container">
-        <img src="{{ user.photoURL }}" alt="userPhoto" />
+  <div id="nav-usable">
+    <ng-container *ngIf="user$ | async as user">
+      <div id="user-info">
+        <div id="photo-container">
+          <img src="{{ user.photoURL }}" alt="userPhoto" />
+        </div>
+        <div id="user-text">
+          <h3>{{ user.displayName }}</h3>
+          <p>{{ user.activeRole }}</p>
+        </div>
       </div>
-      <div id="user-text">
-        <h3>{{ user.displayName }}</h3>
-        <p>{{ user.activeRole }}</p>
-      </div>
-    </div>
-  </ng-container>
 
-  <div id="nav">
-    <a routerLink="/startups" routerLinkActive="active">Startups</a>
-    <a routerLink="/partners" routerLinkActive="active">Partners</a>
-    <a routerLink="/contacts" routerLinkActive="active">Contacts</a>
+      <div id="nav">
+        <a routerLink="/startups" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Startups
+          <div class="dot dot-second"></div>
+        </a>
+        <a routerLink="/partners" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Partners
+          <div class="dot dot-second"></div>
+        </a>
+        <a routerLink="/contacts" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Contacts
+          <div class="dot dot-second"></div>
+        </a>
+      </div>
+
+      <div>
+        <button *ngFor="let role of user.roles">{{ role }}</button>
+      </div>
+    </ng-container>
+  </div>
+
+  <div id="nav-footer">
+    <p class="app-version">v 0.1.0</p>
+    <button>Change account</button>
   </div>
 </div>
