@@ -28,11 +28,23 @@ const routes: Routes = [
   {
     path: 'startups/:id',
     loadChildren: () =>
-      import('./pages/startups-page/startups-page.module').then(
+      import('./pages/startup-page/startups-page.module').then(
         (m) => m.StartupsPageModule
       ),
-    // canActivate: [AngularFireAuthGuard],
-    // data: { authGuardPipe: !loggedIn },
+  },
+  {
+    path: 'partners',
+    loadChildren: () =>
+      import('./pages/partners-page/partners-page.module').then(
+        (m) => m.PartnersPageModule
+      ),
+  },
+  {
+    path: 'contacts',
+    loadChildren: () =>
+      import('./pages/contacts-page/contacts-page.module').then(
+        (m) => m.ContactsPageModule
+      ),
   },
 ];
 

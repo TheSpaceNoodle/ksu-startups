@@ -13,6 +13,7 @@ export interface User {
   photoURL: string | null;
   uid: string | null;
   roles: string[] | null;
+  activeRole: string;
 }
 export interface AuthState {
   user: User | null;

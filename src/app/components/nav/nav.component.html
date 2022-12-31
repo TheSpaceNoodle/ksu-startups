@@ -1,4 +1,19 @@
-<ng-container *ngIf="user$ | async as user">
-  <p>nav works!</p>
-  {{ user.displayName }}
-</ng-container>
+<div id="nav-container">
+  <ng-container *ngIf="user$ | async as user">
+    <div id="user-info">
+      <div id="photo-container">
+        <img src="{{ user.photoURL }}" alt="userPhoto" />
+      </div>
+      <div id="user-text">
+        <h3>{{ user.displayName }}</h3>
+        <p>{{ user.activeRole }}</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <div id="nav">
+    <a routerLink="/startups" routerLinkActive="active">Startups</a>
+    <a routerLink="/partners" routerLinkActive="active">Partners</a>
+    <a routerLink="/contacts" routerLinkActive="active">Contacts</a>
+  </div>
+</div>

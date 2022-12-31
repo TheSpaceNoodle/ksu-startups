@@ -46,6 +46,7 @@ export class AuthService {
           photoURL: userDataInput.photoURL,
           uid: userDataInput.uid,
           roles: [],
+          activeRole: 'user',
         });
     }
   }
