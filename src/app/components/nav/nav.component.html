@@ -29,14 +29,19 @@
         </a>
       </div>
 
-      <div>
-        <button *ngFor="let role of user.roles">{{ role }}</button>
+      <div id="role-changer" *ngIf="userChangerShown">
+        <div class="button-container" *ngFor="let role of user.roles">
+          <button *ngIf="role != user.activeRole" (click)="setRole(role, user)">
+            {{ role }}
+          </button>
+        </div>
+        <button id="log-out" (click)="logOut()">Log Out</button>
       </div>
     </ng-container>
   </div>
 
   <div id="nav-footer">
     <p class="app-version">v 0.1.0</p>
-    <button>Change account</button>
+    <button (click)="toggleUserChanger()">Change account</button>
   </div>
 </div>

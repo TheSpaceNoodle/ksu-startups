@@ -5,6 +5,7 @@ import {
   logInFailed,
   logInSuccess,
   logOut,
+  setRole,
 } from './user.actions';
 
 export interface User {
@@ -42,7 +43,8 @@ const _userReducer = createReducer(
     ...state,
     error: error,
     loading: false,
-  }))
+  })),
+  on(setRole, (state, { user }) => ({ ...state, user: user }))
 );
 
 export const userReducer = (state: AuthState | undefined, action: Action) =>
