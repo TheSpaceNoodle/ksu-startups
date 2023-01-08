@@ -45,14 +45,13 @@ export class AuthService {
           email: userDataInput.email,
           photoURL: userDataInput.photoURL,
           uid: userDataInput.uid,
-          roles: [],
+          roles: ['user'],
           activeRole: 'user',
         });
     }
   }
 
   login() {
-    // dont forget to rewrite db usage rules to restrict access from outer domains
     let userUid = '';
     return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())

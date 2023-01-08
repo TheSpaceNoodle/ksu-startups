@@ -1,6 +1,6 @@
 <div id="nav-container">
-  <div id="nav-usable">
-    <ng-container *ngIf="user$ | async as user">
+  <ng-container *ngIf="user$ | async as user">
+    <div id="nav-usable">
       <div id="user-info">
         <div id="photo-container">
           <img src="{{ user.photoURL }}" alt="userPhoto" />
@@ -27,6 +27,19 @@
           Contacts
           <div class="dot dot-second"></div>
         </a>
+        <a
+          routerLink="/submit-startup"
+          routerLinkActive="active"
+          *ngIf="
+            user.activeRole == 'user' ||
+            user.activeRole == 'administrator' ||
+            user.activeRole == 'startup founder'
+          "
+        >
+          <div class="dot dot-first"></div>
+          Submit Startup
+          <div class="dot dot-second"></div>
+        </a>
       </div>
 
       <div id="role-changer" *ngIf="userChangerShown">
@@ -37,8 +50,8 @@
         </div>
         <button id="log-out" (click)="logOut()">Log Out</button>
       </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
 
   <div id="nav-footer">
     <p class="app-version">v 0.1.0</p>

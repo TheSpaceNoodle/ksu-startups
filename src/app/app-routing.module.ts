@@ -46,6 +46,13 @@ const routes: Routes = [
         (m) => m.ContactsPageModule
       ),
   },
+  {
+    path: 'submit-startup',
+    loadChildren: () =>
+      import('./pages/submit-startup-page/submit-startup-page.module').then(
+        (m) => m.SubmitStartupPageModule
+      ),
+  },
 ];
 
 @NgModule({
