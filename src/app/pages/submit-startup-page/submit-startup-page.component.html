@@ -1,3 +1,40 @@
 <div class="container">
-  <p>submit-startup-page works!</p>
+  <form [formGroup]="startupForm" (ngSubmit)="onSubmit($event)">
+    <input
+      type="text"
+      formControlName="startupName"
+      placeholder="startupName"
+    />
+    <input
+      *ngIf="startupForm.value.startupName"
+      type="text"
+      formControlName="startupFinances"
+      placeholder="$amount.of.money"
+    />
+    <input
+      *ngIf="startupForm.value.startupFinances"
+      type="text"
+      formControlName="startupYouTubeLink"
+      placeholder="https://youtube.com/"
+    />
+    <textarea
+      *ngIf="startupForm.value.startupYouTubeLink"
+      formControlName="startupDescription"
+      cols="30"
+      rows="10"
+    ></textarea>
+    <textarea
+      *ngIf="startupForm.value.startupDescription"
+      formControlName="startupHistory"
+      cols="30"
+      rows="10"
+    ></textarea>
+    <input
+      *ngIf="startupForm.value.startupHistory"
+      (change)="onFileUpload($event)"
+      type="file"
+      placeholder="startupFile"
+    />
+    <button type="submit" *ngIf="formFilled">Submit</button>
+  </form>
 </div>
