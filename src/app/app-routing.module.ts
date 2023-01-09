@@ -22,8 +22,6 @@ const routes: Routes = [
       import('./pages/startups-page/startups-page.module').then(
         (m) => m.StartupsPageModule
       ),
-    // canActivate: [AngularFireAuthGuard],
-    // data: { authGuardPipe: !loggedIn },
   },
   {
     path: 'startups/:id',

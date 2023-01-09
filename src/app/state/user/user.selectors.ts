@@ -7,3 +7,7 @@ export const selectUserData = createSelector(
   selectUser,
   (authState: AuthState) => authState.user
 );
+export const selectUserUid = createSelector(
+  selectUser,
+  (authState: AuthState) => authState.user?.uid
+);

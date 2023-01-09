@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { StorageService } from 'src/app/services/storage.service';
+import { Store } from '@ngrx/store';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Startup, submitStartup } from 'src/app/state';
 
 @Component({
   selector: 'app-submit-startup-page',
@@ -19,7 +21,7 @@ export class SubmitStartupPageComponent implements OnInit {
   });
   formFilled = this.startupForm.valid;
 
-  constructor(private storageService: StorageService) {}
+  constructor(private fsService: FirestoreService, private store: Store) {}
 
   onFileUpload(e: any) {
     this.file = e.target.files[0];
@@ -29,12 +31,34 @@ export class SubmitStartupPageComponent implements OnInit {
     ) {
       this.file = null;
     }
-    console.log(this.file);
   }
 
-  onSubmit(e: any) {
-    this.storageService.upload(e.target.files[0]);
-    console.log(this.startupForm.value);
+  onSubmit() {
+    let data = this.startupForm.value;
+    if (
+      data &&
+      data.startupName &&
+      data.startupFinances &&
+      data.startupDescription &&
+      data.startupHistory &&
+      this.file
+    ) {
+      let startupData: Startup = {
+        startupName: data.startupName,
+        startupFinances: data.startupFinances,
+        startupYouTubeLink: data.startupYouTubeLink,
+        startupDescription: data.startupDescription,
+        startupHistory: data.startupHistory,
+        authorUid: '',
+        startupImage: '',
+      };
+      this.store.dispatch(
+        submitStartup({
+          startupData: startupData,
+          file: this.file,
+        })
+      );
+    }
   }
 
   ngOnInit(): void {}

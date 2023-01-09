@@ -1,58 +1,83 @@
 <div id="nav-container">
-  <ng-container *ngIf="user$ | async as user">
-    <div id="nav-usable">
-      <div id="user-info">
-        <div id="photo-container">
-          <img src="{{ user.photoURL }}" alt="userPhoto" />
-        </div>
-        <div id="user-text">
-          <h3>{{ user.displayName }}</h3>
-          <p>{{ user.activeRole }}</p>
-        </div>
-      </div>
-
-      <div id="nav">
-        <a routerLink="/startups" routerLinkActive="active">
-          <div class="dot dot-first"></div>
-          Startups
-          <div class="dot dot-second"></div>
-        </a>
-        <a routerLink="/partners" routerLinkActive="active">
-          <div class="dot dot-first"></div>
-          Partners
-          <div class="dot dot-second"></div>
-        </a>
-        <a routerLink="/contacts" routerLinkActive="active">
-          <div class="dot dot-first"></div>
-          Contacts
-          <div class="dot dot-second"></div>
-        </a>
-        <a
-          routerLink="/submit-startup"
-          routerLinkActive="active"
-          *ngIf="
-            user.activeRole == 'user' ||
-            user.activeRole == 'administrator' ||
-            user.activeRole == 'startup founder'
-          "
-        >
-          <div class="dot dot-first"></div>
-          Submit Startup
-          <div class="dot dot-second"></div>
-        </a>
-      </div>
-
-      <div id="role-changer" *ngIf="userChangerShown">
-        <div class="button-container" *ngFor="let role of user.roles">
-          <button *ngIf="role != user.activeRole" (click)="setRole(role, user)">
-            {{ role }}
-          </button>
-        </div>
-        <button id="log-out" (click)="logOut()">Log Out</button>
-      </div>
-    </div>
+  <ng-container *ngTemplateOutlet="(user$ | async) ? withUser : withoutUser">
   </ng-container>
 
+  <ng-template #withoutUser>
+    <div id="nav">
+      <a routerLink="/startups" routerLinkActive="active">
+        <div class="dot dot-first"></div>
+        Startups
+        <div class="dot dot-second"></div>
+      </a>
+      <a routerLink="/partners" routerLinkActive="active">
+        <div class="dot dot-first"></div>
+        Partners
+        <div class="dot dot-second"></div>
+      </a>
+      <a routerLink="/contacts" routerLinkActive="active">
+        <div class="dot dot-first"></div>
+        Contacts
+        <div class="dot dot-second"></div>
+      </a>
+    </div>
+  </ng-template>
+
+  <ng-template #withUser>
+    <ng-container *ngIf="user$ | async as user">
+      <div id="nav-usable">
+        <div id="user-info">
+          <div id="photo-container">
+            <img src="{{ user.photoURL }}" alt="userPhoto" />
+          </div>
+          <div id="user-text">
+            <h3>{{ user.displayName }}</h3>
+            <p>{{ user.activeRole }}</p>
+          </div>
+        </div>
+        <div id="nav">
+          <a routerLink="/startups" routerLinkActive="active">
+            <div class="dot dot-first"></div>
+            Startups
+            <div class="dot dot-second"></div>
+          </a>
+          <a routerLink="/partners" routerLinkActive="active">
+            <div class="dot dot-first"></div>
+            Partners
+            <div class="dot dot-second"></div>
+          </a>
+          <a routerLink="/contacts" routerLinkActive="active">
+            <div class="dot dot-first"></div>
+            Contacts
+            <div class="dot dot-second"></div>
+          </a>
+          <a
+            routerLink="/submit-startup"
+            routerLinkActive="active"
+            *ngIf="
+              user.activeRole == 'user' ||
+              user.activeRole == 'administrator' ||
+              user.activeRole == 'startup founder'
+            "
+          >
+            <div class="dot dot-first"></div>
+            Submit Startup
+            <div class="dot dot-second"></div>
+          </a>
+        </div>
+        <div id="role-changer" *ngIf="userChangerShown">
+          <div class="button-container" *ngFor="let role of user.roles">
+            <button
+              *ngIf="role != user.activeRole"
+              (click)="setRole(role, user)"
+            >
+              {{ role }}
+            </button>
+          </div>
+          <button id="log-out" (click)="logOut()">Log Out</button>
+        </div>
+      </div>
+    </ng-container>
+  </ng-template>
   <div id="nav-footer">
     <p class="app-version">v 0.1.0</p>
     <button (click)="toggleUserChanger()">Change account</button>

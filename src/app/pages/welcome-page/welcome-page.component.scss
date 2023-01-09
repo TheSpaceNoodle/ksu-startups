@@ -93,7 +93,7 @@ nav {
   background-image: url("/assets/partnership-bg.svg");
   background-size: cover;
   background-repeat: repeat-y;
-
+  background-color: #fff;
   h2 {
     margin: auto;
     text-align: center;
@@ -134,6 +134,8 @@ nav {
 
 #contacts {
   min-height: 600px;
+  background-color: #fff;
+
   .section-content {
     flex-direction: column;
   }
