@@ -1,40 +1,66 @@
 <div class="container">
   <form [formGroup]="startupForm" (ngSubmit)="onSubmit($event)">
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="startupName"
+        placeholder="startupName"
+        required
+      />
+      <input
+        type="text"
+        formControlName="startupFinances"
+        placeholder="ex: $35.000.000"
+        required
+      />
+    </div>
     <input
-      type="text"
-      formControlName="startupName"
-      placeholder="startupName"
-    />
-    <input
-      *ngIf="startupForm.value.startupName"
-      type="text"
-      formControlName="startupFinances"
-      placeholder="$amount.of.money"
-    />
-    <input
-      *ngIf="startupForm.value.startupFinances"
       type="text"
       formControlName="startupYouTubeLink"
       placeholder="https://youtube.com/"
     />
     <textarea
-      *ngIf="startupForm.value.startupYouTubeLink"
       formControlName="startupDescription"
       cols="30"
       rows="10"
+      maxlength="5000"
+      placeholder="Description of your idea, up to 5000 symbols"
+      required
     ></textarea>
     <textarea
-      *ngIf="startupForm.value.startupDescription"
       formControlName="startupHistory"
       cols="30"
       rows="10"
+      maxlength="5000"
+      placeholder="History of your startup, up to 5000 symbols"
+      required
     ></textarea>
-    <input
-      *ngIf="startupForm.value.startupHistory"
-      (change)="onFileUpload($event)"
-      type="file"
-      placeholder="startupFile"
-    />
-    <button type="submit" *ngIf="formFilled">Submit</button>
+
+    <div class="dropzone">
+      <input
+        (change)="onFileUpload($event)"
+        type="file"
+        placeholder="startupFile"
+        accept="png, jpg"
+        #fileDrop
+      />
+      <ng-container
+        *ngTemplateOutlet="file ? fileUploaded : fileNotUploaded"
+      ></ng-container>
+      <h3>Drag and drop your startup image (png/jpg) here</h3>
+      <h3>or</h3>
+      <label for="fileDrop">Browse for file</label>
+    </div>
+
+    <button type="submit" [disabled]="!(startupForm.valid && file)">
+      Submit
+    </button>
   </form>
 </div>
+
+<ng-template #fileUploaded>
+  <img src="/assets/icons/FileUploaded.svg" alt="" />
+</ng-template>
+<ng-template #fileNotUploaded>
+  <img src="/assets/icons/FileUpload.svg" alt="" />
+</ng-template>
