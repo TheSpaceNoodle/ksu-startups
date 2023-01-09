@@ -1,5 +1,13 @@
 import { NgModule } from '@angular/core';
+import {
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+
+const redirectLoggedInToStartups = () => redirectLoggedInTo(['startups']);
+const redirectUnathorizedToHome = () => redirectUnauthorizedTo(['startups']);
 
 const routes: Routes = [
   {
@@ -15,6 +23,8 @@ const routes: Routes = [
       import('./pages/auth-page/auth-page.module').then(
         (m) => m.AuthPageModule
       ),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInToStartups },
   },
   {
     path: 'startups',
@@ -50,6 +60,8 @@ const routes: Routes = [
       import('./pages/submit-startup-page/submit-startup-page.module').then(
         (m) => m.SubmitStartupPageModule
       ),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnathorizedToHome },
   },
 ];
 

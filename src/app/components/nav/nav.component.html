@@ -53,11 +53,7 @@
           <a
             routerLink="/submit-startup"
             routerLinkActive="active"
-            *ngIf="
-              user.activeRole == 'user' ||
-              user.activeRole == 'administrator' ||
-              user.activeRole == 'startup founder'
-            "
+            *ngIf="user"
           >
             <div class="dot dot-first"></div>
             Submit Startup
@@ -80,6 +76,9 @@
   </ng-template>
   <div id="nav-footer">
     <p class="app-version">v 0.1.0</p>
-    <button (click)="toggleUserChanger()">Change account</button>
+    <button (click)="toggleUserChanger()" *ngIf="user$ | async">
+      Change account
+    </button>
+    <a routerLink="auth" *ngIf="!(user$ | async)">LogIn</a>
   </div>
 </div>
