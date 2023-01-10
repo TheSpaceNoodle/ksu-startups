@@ -53,8 +53,9 @@
     </div>
 
     <button type="submit" [disabled]="!(startupForm.valid && file)">
-      Submit
+      {{ (startupMessage$ | async) ? (startupMessage$ | async) : "Submit" }}
     </button>
+    <p></p>
   </form>
 </div>
 

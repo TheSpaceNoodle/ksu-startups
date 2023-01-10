@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Startup, submitStartup } from 'src/app/state';
+import { AppState } from 'src/app/state/app.state';
+import { selectSubmitStartupMessage } from 'src/app/state/startups/startup.selectors';
 
 @Component({
   selector: 'app-submit-startup-page',
@@ -11,6 +14,7 @@ import { Startup, submitStartup } from 'src/app/state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubmitStartupPageComponent implements OnInit {
+  startupMessage$!: Observable<string | null>;
   file: File | null = null;
   startupForm = new FormGroup({
     startupName: new FormControl(''),
@@ -21,7 +25,10 @@ export class SubmitStartupPageComponent implements OnInit {
   });
   formFilled = this.startupForm.valid;
 
-  constructor(private fsService: FirestoreService, private store: Store) {}
+  constructor(
+    private fsService: FirestoreService,
+    private store: Store<AppState>
+  ) {}
 
   onFileUpload(e: any) {
     this.file = e.target.files[0];
@@ -61,5 +68,7 @@ export class SubmitStartupPageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.startupMessage$ = this.store.select(selectSubmitStartupMessage);
+  }
 }

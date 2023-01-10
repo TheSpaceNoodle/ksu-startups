@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { firstValueFrom, take } from 'rxjs';
 import { Startup, User } from '../state';
-import { StorageService } from './storage.service';
 
 // create a base function to retrieve data
 // create a separated functions to retrieve data from collections and storages using base function
@@ -14,17 +14,17 @@ export class FirestoreService {
   uid!: string;
 
   constructor(
-    private afs: AngularFirestore,
-    private storageService: StorageService
+    private afStore: AngularFirestore,
+    private afStorage: AngularFireStorage
   ) {}
 
   setUserData(uid: string, user: User) {
-    this.afs.doc<User>(`users/${uid}`).set(user);
+    this.afStore.doc<User>(`users/${uid}`).set(user);
   }
 
   getUserData(uid: string) {
     this.uid = uid;
-    return this.afs.doc<User>(`users/${uid}`).valueChanges();
+    return this.afStore.doc<User>(`users/${uid}`).valueChanges();
   }
 
   async doUserExists(uid: string) {
@@ -35,21 +35,23 @@ export class FirestoreService {
     return userExists;
   }
 
-  async submitStartup(startupData: Startup, file: File) {
-    const imageUrl = await this.storageService.upload(
-      file,
-      this.uid,
-      startupData.startupName
-    );
-    startupData = {
-      ...startupData,
-      authorUid: this.uid,
-      startupImage: imageUrl,
-    };
-    this.afs
-      .doc<Startup>(
-        `startupsToApprove/${this.uid + '|' + startupData.startupName}`
-      )
-      .set(startupData);
+  submitStartup(startupData: Startup, file: File) {
+    const refUrl = `startupsToApprove/${this.uid}/${startupData.startupName}/${file.name}`;
+    this.afStorage.upload(refUrl, file).then(() => {
+      firstValueFrom(this.afStorage.ref(refUrl).getDownloadURL()).then(
+        (imageUrl) => {
+          startupData = {
+            ...startupData,
+            authorUid: this.uid,
+            startupImage: imageUrl,
+          };
+          this.afStore
+            .doc<Startup>(
+              `startupsToApprove/${this.uid + '|' + startupData.startupName}`
+            )
+            .set(startupData);
+        }
+      );
+    });
   }
 }

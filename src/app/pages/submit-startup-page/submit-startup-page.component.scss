@@ -41,6 +41,17 @@ form {
       width: 50%;
     }
   }
+
+  button[type="submit"] {
+    height: 50px;
+    width: 300px;
+    margin: auto;
+    background-color: #71a0eb;
+    border: none;
+    border-radius: 10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
 }
 
 textarea {
