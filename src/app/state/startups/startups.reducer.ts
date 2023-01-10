@@ -1,5 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { submitStartup, submitStartupSuccess } from './startups.actions';
+import {
+  getAllStartups,
+  getAllStartupsFailed,
+  getAllStartupsSuccess,
+  submitStartup,
+  submitStartupSuccess,
+} from './startups.actions';
 
 export interface Startup {
   startupName: string;
@@ -25,10 +31,27 @@ const initialState: StartupsState = {
 
 const _startupsReducer = createReducer(
   initialState,
-  on(submitStartup, (state) => ({ ...state, message: 'submitting startups' })),
+  on(submitStartup, (state) => ({
+    ...state,
+    message: 'submitting startups',
+    loading: true,
+  })),
   on(submitStartupSuccess, (state) => ({
     ...state,
     message: 'startup submitted',
+    loading: false,
+  })),
+
+  on(getAllStartups, (state) => ({ ...state, loading: true })),
+  on(getAllStartupsSuccess, (state, { startups }) => ({
+    startups: startups,
+    loading: false,
+    message: null,
+  })),
+  on(getAllStartupsFailed, (state, { message }) => ({
+    ...state,
+    loading: false,
+    message: message,
   }))
 );
 

@@ -54,4 +54,8 @@ export class FirestoreService {
       );
     });
   }
+
+  getAllStartups() {
+    return this.afStore.collection<Startup>('startups').valueChanges();
+  }
 }
