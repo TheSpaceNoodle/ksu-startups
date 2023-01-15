@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { firstValueFrom, take } from 'rxjs';
+import { firstValueFrom, Observable, take } from 'rxjs';
 import { Startup, User } from '../state';
 
 // create a base function to retrieve data
@@ -11,6 +11,7 @@ import { Startup, User } from '../state';
   providedIn: 'root',
 })
 export class FirestoreService {
+  startupsQuery$!: Observable<Startup[]>;
   uid!: string;
 
   constructor(
@@ -25,6 +26,10 @@ export class FirestoreService {
   getUserData(uid: string) {
     this.uid = uid;
     return this.afStore.doc<User>(`users/${uid}`).valueChanges();
+  }
+
+  approveStartup() {
+    // don't forget to add 'approved at' field
   }
 
   async doUserExists(uid: string) {
@@ -56,6 +61,25 @@ export class FirestoreService {
   }
 
   getAllStartups() {
-    return this.afStore.collection<Startup>('startups').valueChanges();
+    if (this.startupsQuery$) {
+      this.startupsQuery$.pipe(take(1)).subscribe((doc) => {
+        this.startupsQuery$ = this.afStore
+          .collection<Startup>('startups', (ref) =>
+            ref
+              .limit(1)
+              .orderBy('approvedAt')
+              .startAfter(doc[doc.length - 1].approvedAt)
+          )
+          .valueChanges({ idField: 'docId' });
+      });
+    } else {
+      this.startupsQuery$ = this.afStore
+        .collection<Startup>('startups', (ref) =>
+          ref.limit(1).orderBy('approvedAt')
+        )
+        .valueChanges({ idField: 'docId' });
+    }
+
+    return this.startupsQuery$;
   }
 }

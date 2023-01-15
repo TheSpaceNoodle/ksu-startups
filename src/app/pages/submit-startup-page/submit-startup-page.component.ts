@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import { Startup, submitStartup } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
 import { selectSubmitStartupMessage } from 'src/app/state/startups/startup.selectors';
@@ -20,15 +19,13 @@ export class SubmitStartupPageComponent implements OnInit {
     startupName: new FormControl(''),
     startupFinances: new FormControl(''),
     startupYouTubeLink: new FormControl(),
+    startupShortDesc: new FormControl(''),
     startupDescription: new FormControl(''),
     startupHistory: new FormControl(''),
   });
   formFilled = this.startupForm.valid;
 
-  constructor(
-    private fsService: FirestoreService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   onFileUpload(e: any) {
     this.file = e.target.files[0];
@@ -46,6 +43,7 @@ export class SubmitStartupPageComponent implements OnInit {
       data &&
       data.startupName &&
       data.startupFinances &&
+      data.startupShortDesc &&
       data.startupDescription &&
       data.startupHistory &&
       this.file
@@ -54,6 +52,7 @@ export class SubmitStartupPageComponent implements OnInit {
         startupName: data.startupName,
         startupFinances: data.startupFinances,
         startupYouTubeLink: data.startupYouTubeLink,
+        startupShortDesc: data.startupShortDesc,
         startupDescription: data.startupDescription,
         startupHistory: data.startupHistory,
         authorUid: '',

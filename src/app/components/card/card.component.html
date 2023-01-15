@@ -1,18 +1,14 @@
-<div class="card closed">
-  <img src="" alt="startup image" />
-  <div class="card-heading">
-    <h1 class="card-capture"></h1>
-    <p class="estimated-budget"></p>
+<a
+  routerLink="/startups/{{
+    startupData.authorUid + '|' + startupData.startupName
+  }}"
+>
+  <div class="card">
+    <img src="{{ startupData.startupImage }}" alt="startup image" />
+    <div class="card-heading">
+      <h1 class="card-capture">{{ startupData.startupName }}</h1>
+      <p class="estimated-budget">{{ startupData.startupFinances }}</p>
+    </div>
+    <p class="short-description">{{ startupData.startupShortDesc }}</p>
   </div>
-  <p class="short-description"></p>
-</div>
-
-<div class="card opened">
-  <img src="" alt="startup image" />
-  <div class="card-heading">
-    <h1 class="card-capture"></h1>
-    <p class="estimated-budget"></p>
-  </div>
-  <p class="full-description"></p>
-  <!-- someshit files, idk where to get them -->
-</div>
+</a>

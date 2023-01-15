@@ -7,3 +7,8 @@ export const selectSubmitStartupMessage = createSelector(
   selectStartups,
   (startupsState: StartupsState) => startupsState.message
 );
+
+export const selectAllStartups = createSelector(
+  selectStartups,
+  (startupsState: StartupsState) => startupsState.startups
+);

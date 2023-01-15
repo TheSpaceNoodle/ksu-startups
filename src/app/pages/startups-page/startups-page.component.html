@@ -1,3 +1,8 @@
 <div class="container">
-  <p>startups-page works!</p>
+  <app-card
+    *ngFor="let startup of startups$ | async"
+    [startupData]="startup"
+  ></app-card>
+
+  <button (click)="shit()">someshit</button>
 </div>
