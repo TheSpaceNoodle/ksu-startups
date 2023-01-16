@@ -61,24 +61,9 @@ export class FirestoreService {
   }
 
   getAllStartups() {
-    if (this.startupsQuery$) {
-      this.startupsQuery$.pipe(take(1)).subscribe((doc) => {
-        this.startupsQuery$ = this.afStore
-          .collection<Startup>('startups', (ref) =>
-            ref
-              .limit(1)
-              .orderBy('approvedAt')
-              .startAfter(doc[doc.length - 1].approvedAt)
-          )
-          .valueChanges({ idField: 'docId' });
-      });
-    } else {
-      this.startupsQuery$ = this.afStore
-        .collection<Startup>('startups', (ref) =>
-          ref.limit(1).orderBy('approvedAt')
-        )
-        .valueChanges({ idField: 'docId' });
-    }
+    this.startupsQuery$ = this.afStore
+      .collection<Startup>('startups')
+      .valueChanges({ idField: 'docId' });
 
     return this.startupsQuery$;
   }

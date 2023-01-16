@@ -4,11 +4,18 @@
   }}"
 >
   <div class="card">
-    <img src="{{ startupData.startupImage }}" alt="startup image" />
-    <div class="card-heading">
-      <h1 class="card-capture">{{ startupData.startupName }}</h1>
-      <p class="estimated-budget">{{ startupData.startupFinances }}</p>
+    <div class="image-wrapper">
+      <img src="{{ startupData.startupImage }}" alt="startup image" />
     </div>
-    <p class="short-description">{{ startupData.startupShortDesc }}</p>
+    <div class="card-text">
+      <div class="card-heading">
+        <h1 class="card-capture">{{ startupData.startupName }}</h1>
+        <p class="estimated-budget">
+          est. budget
+          <span class="highlight">${{ startupData.startupFinances }}</span>
+        </p>
+      </div>
+      <p class="short-description">{{ startupData.startupShortDesc }}</p>
+    </div>
   </div>
 </a>

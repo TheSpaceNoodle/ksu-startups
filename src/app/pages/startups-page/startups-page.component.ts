@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Startup } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
@@ -14,14 +14,29 @@ import { selectAllStartups } from 'src/app/state/startups/startup.selectors';
 })
 export class StartupsPageComponent implements OnInit {
   startups$!: Observable<Startup[]>;
+  currentPage = 0;
 
   constructor(private store: Store<AppState>, private af: FirestoreService) {}
 
-  shit() {
-    this.startups$ = this.af.getAllStartups();
+  next() {
+    this.currentPage += 1;
+    this.updateSelectedStartups();
+  }
+
+  previous() {
+    this.currentPage -= 1;
+    this.updateSelectedStartups();
+  }
+
+  updateSelectedStartups() {
+    this.startups$ = this.store.select(selectAllStartups).pipe(
+      map((data) => {
+        return data.slice(this.currentPage, this.currentPage + 1);
+      })
+    );
   }
 
   ngOnInit(): void {
-    this.startups$ = this.store.select(selectAllStartups);
+    this.updateSelectedStartups();
   }
 }

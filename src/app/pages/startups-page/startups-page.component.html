@@ -1,8 +1,10 @@
 <div class="container">
-  <app-card
-    *ngFor="let startup of startups$ | async"
-    [startupData]="startup"
-  ></app-card>
-
-  <button (click)="shit()">someshit</button>
+  <div class="startups">
+    <app-card
+      *ngFor="let startup of startups$ | async"
+      [startupData]="startup"
+    ></app-card>
+    <button (click)="previous()"><<</button>
+    <button (click)="next()">>></button>
+  </div>
 </div>
