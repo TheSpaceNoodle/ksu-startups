@@ -18,6 +18,7 @@ body {
   font-weight: 400;
   font-size: 32px;
   background-color: #5a88d2;
+  overflow-x: hidden;
 }
 
 .highlight {
@@ -27,4 +28,5 @@ body {
 .container {
   width: calc(100vw - 400px);
   margin-left: 400px;
+  overflow: hidden;
 }
