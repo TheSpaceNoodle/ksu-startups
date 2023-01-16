@@ -4,7 +4,7 @@
       *ngFor="let startup of startups$ | async"
       [startupData]="startup"
     ></app-card>
-    <button (click)="previous()"><<</button>
-    <button (click)="next()">>></button>
   </div>
+  <button (click)="previous()" [disabled]="currentPage == 0"><<</button>
+  <button (click)="next()" [disabled]="isNextActive">>></button>
 </div>

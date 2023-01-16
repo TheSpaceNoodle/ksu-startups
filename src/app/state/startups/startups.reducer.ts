@@ -14,7 +14,6 @@ export interface Startup {
   startupShortDesc: string;
   startupDescription: string;
   startupHistory: string;
-  approvedAt?: string;
   authorUid: string;
   startupImage: string;
 }

@@ -15,6 +15,7 @@ import { selectAllStartups } from 'src/app/state/startups/startup.selectors';
 export class StartupsPageComponent implements OnInit {
   startups$!: Observable<Startup[]>;
   currentPage = 0;
+  isNextActive = true;
 
   constructor(private store: Store<AppState>, private af: FirestoreService) {}
 
@@ -31,7 +32,13 @@ export class StartupsPageComponent implements OnInit {
   updateSelectedStartups() {
     this.startups$ = this.store.select(selectAllStartups).pipe(
       map((data) => {
-        return data.slice(this.currentPage, this.currentPage + 1);
+        data.length > this.currentPage * 11
+          ? (this.isNextActive = true)
+          : (this.isNextActive = false);
+
+        return this.currentPage == 0
+          ? data.slice(this.currentPage, this.currentPage + 10)
+          : data.slice(this.currentPage * 11, this.currentPage * 11 + 10);
       })
     );
   }

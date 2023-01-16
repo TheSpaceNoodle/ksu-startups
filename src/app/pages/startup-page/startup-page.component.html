@@ -1,1 +1,17 @@
-<p>startup-page works!</p>
+<div class="container">
+  <div class="card" *ngIf="startupData$ | async as startupData">
+    <div class="image-wrapper">
+      <img src="{{ startupData.startupImage }}" alt="startup image" />
+    </div>
+    <div class="card-text">
+      <div class="card-heading">
+        <h1 class="card-capture">{{ startupData.startupName }}</h1>
+        <p class="estimated-budget">
+          est. budget
+          <span class="highlight">${{ startupData.startupFinances }}</span>
+        </p>
+      </div>
+      <p class="short-description">{{ startupData.startupShortDesc }}</p>
+    </div>
+  </div>
+</div>
