@@ -1,0 +1,22 @@
+.contacts-list {
+  padding: 15px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  svg path {
+    fill: #e9f2ff;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    color: #e9f2ff;
+    text-decoration: none;
+
+    p {
+      margin-left: 50px;
+    }
+  }
+}

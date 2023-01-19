@@ -1,3 +1,9 @@
 <div class="container">
-  <p>submit-startup-page works!</p>
+  <hr />
+  <div class="partners-wrapper">
+    <app-partner
+      *ngFor="let partner of partners | async"
+      [partner]="partner"
+    ></app-partner>
+  </div>
 </div>

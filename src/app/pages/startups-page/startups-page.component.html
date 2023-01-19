@@ -5,6 +5,8 @@
       [startupData]="startup"
     ></app-card>
   </div>
-  <button (click)="previous()" [disabled]="currentPage == 0"><<</button>
-  <button (click)="next()" [disabled]="isNextActive">>></button>
+  <div class="pagination">
+    <button (click)="previous()" [disabled]="currentPage == 0"><<</button>
+    <button (click)="next()" [disabled]="isNextActive">>></button>
+  </div>
 </div>

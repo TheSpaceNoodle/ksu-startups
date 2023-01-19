@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { getAllStartups, getUser } from './state';
+import { getPartners } from './state/partners/partners.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,5 +24,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(getUser());
     this.store.dispatch(getAllStartups());
+    this.store.dispatch(getPartners());
   }
 }

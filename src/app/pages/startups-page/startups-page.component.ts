@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import { Startup } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
 import { selectAllStartups } from 'src/app/state/startups/startup.selectors';
@@ -17,7 +16,7 @@ export class StartupsPageComponent implements OnInit {
   currentPage = 0;
   isNextActive = true;
 
-  constructor(private store: Store<AppState>, private af: FirestoreService) {}
+  constructor(private store: Store<AppState>) {}
 
   next() {
     this.currentPage += 1;

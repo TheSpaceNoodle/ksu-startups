@@ -1,4 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/state/app.state';
+import { Partner } from 'src/app/state/partners/partners.reducer';
+import { selectPartners } from 'src/app/state/partners/partners.selectors';
 
 @Component({
   selector: 'app-welcome-page',
@@ -7,24 +12,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomePageComponent implements OnInit {
-  partners = [
-    {
-      name: 'Rebecca',
-      position:
-        '<span class="highlight">Rebecca</span> was a solo and a secondary character in <span class="highlight">Cyberpunk: Edgerunners</span>.',
-      info: '<span class="highlight">Rebecca</span> is a very sharp-tongued person, has a tendency to extremes and is unpredictable. She is often shown going all out in fights and in no way shying away from using violence or even killing. Nevertheless, Rebecca is a very loyal person and does everything for the crew of Maine and supports David where she can.',
-      imgUrl: './assets/partner-placeholder.png',
-    },
-    {
-      name: 'Rebecca',
-      position:
-        '<span class="highlight">Rebecca</span> was a solo and a secondary character in <span class="highlight">Cyberpunk: Edgerunners</span>.',
-      info: '<span class="highlight">Rebecca</span> is a very sharp-tongued person, has a tendency to extremes and is unpredictable. She is often shown going all out in fights and in no way shying away from using violence or even killing. Nevertheless, Rebecca is a very loyal person and does everything for the crew of Maine and supports David where she can.',
-      imgUrl: './assets/partner-placeholder.png',
-    },
-  ];
+  partners!: Observable<Partner[]>;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.partners = this.store.select(selectPartners);
+  }
 }

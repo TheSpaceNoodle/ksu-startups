@@ -52,7 +52,7 @@
   <div class="section-content">
     <h1 class="heading">Partnership</h1>
     <app-partner
-      *ngFor="let partner of partners"
+      *ngFor="let partner of partners | async"
       [partner]="partner"
     ></app-partner>
     <h2>
@@ -90,16 +90,16 @@
       <div class="first">
         <a href="tel: +380000000000" class="contact">
           <img src="./assets/contacts/phone.svg" alt="phone" />
-          <p>+380000000000</p>
+          <p>+380963102636</p>
         </a>
         <a href="mailto: someEmail@gmail.com" class="contact">
           <img src="./assets/contacts/email.svg" alt="email" />
-          <p>someEmail@gmail.com</p>
+          <p>office@ksu.ks.ua</p>
         </a>
-        <a href="https://github.com/SheogorathD" class="contact">
+        <!-- <a href="https://github.com/SheogorathD" class="contact">
           <img src="./assets/contacts/github.svg" alt="github" />
           <p>@SheogorathD</p>
-        </a>
+        </a> -->
       </div>
       <div class="second">
         <a href="https://www.kspu.edu" class="contact">

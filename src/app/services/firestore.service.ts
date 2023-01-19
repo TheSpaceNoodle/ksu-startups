@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { firstValueFrom, Observable, take } from 'rxjs';
 import { Startup, User } from '../state';
+import { Partner } from '../state/partners/partners.reducer';
 
 // create a base function to retrieve data
 // create a separated functions to retrieve data from collections and storages using base function
@@ -66,5 +67,9 @@ export class FirestoreService {
       .valueChanges({ idField: 'docId' });
 
     return this.startupsQuery$;
+  }
+
+  getPartners() {
+    return this.afStore.collection<Partner>('partners').valueChanges();
   }
 }

@@ -25,6 +25,30 @@ body {
   color: #6aa3ff;
 }
 
+section#partnership {
+  .partner {
+    .partner-photo-wrapper {
+      box-shadow: 0px 2px 4px 3px rgba(113, 160, 235, 0.4);
+    }
+  }
+}
+
+.partners-wrapper {
+  .highlight {
+    color: #e9f2ff;
+  }
+
+  .partner-photo-wrapper {
+    box-shadow: 0px 2px 9px 7px rgba(233, 242, 255, 0.4);
+  }
+
+  .partner-info {
+    h1 {
+      text-shadow: 0px 1px 4px #e9f2ff;
+    }
+  }
+}
+
 .container {
   width: calc(100vw - 400px);
   margin-left: 400px;

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, from, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
 import {
   getUser,
   logIn,
@@ -50,13 +49,6 @@ export class UserEffects {
       )
     )
   );
-  // getUser$ = createEffect(() =>
-  //   this.actions$.pipe(ofType(logInSuccess), switchMap(() =>))
-  // );
 
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private fs: FirestoreService
-  ) {}
+  constructor(private actions$: Actions, private authService: AuthService) {}
 }

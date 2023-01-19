@@ -1,4 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from 'src/app/state/app.state';
+import { Partner } from 'src/app/state/partners/partners.reducer';
+import { selectPartners } from 'src/app/state/partners/partners.selectors';
 
 @Component({
   selector: 'app-partners-page',
@@ -7,7 +12,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartnersPageComponent implements OnInit {
-  constructor() {}
+  partners!: Observable<Partner[]>;
 
-  ngOnInit(): void {}
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    this.partners = this.store.select(selectPartners);
+  }
 }
