@@ -5,9 +5,6 @@ import { firstValueFrom, Observable, take } from 'rxjs';
 import { Startup, User } from '../state';
 import { Partner } from '../state/partners/partners.reducer';
 
-// create a base function to retrieve data
-// create a separated functions to retrieve data from collections and storages using base function
-
 @Injectable({
   providedIn: 'root',
 })
@@ -29,9 +26,7 @@ export class FirestoreService {
     return this.afStore.doc<User>(`users/${uid}`).valueChanges();
   }
 
-  approveStartup() {
-    // don't forget to add 'approved at' field
-  }
+  approveStartup() {}
 
   async doUserExists(uid: string) {
     let userExists = false;

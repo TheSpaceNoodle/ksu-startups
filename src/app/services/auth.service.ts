@@ -6,11 +6,6 @@ import { firstValueFrom } from 'rxjs';
 import { User } from '../state';
 import { FirestoreService } from './firestore.service';
 
-// TODO:
-// add check to the database if the user is in it
-// if user is not in the db && his domain is not rescticted => add user to the db
-// otherwise => do nothing
-
 @Injectable({
   providedIn: 'root',
 })
