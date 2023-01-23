@@ -47,34 +47,38 @@ export class SubmitStartupPageComponent implements OnInit {
   }
 
   onSubmit() {
-    let formValue = this.startupForm.value;
-    if (
-      formValue &&
-      formValue.startupName &&
-      formValue.startupFinances &&
-      formValue.startupShortDesc &&
-      formValue.startupDescription &&
-      formValue.startupHistory &&
-      this.file
-    ) {
+    const formValue = this.startupForm.value;
+    if (this.isFormValid()) {
       const startupData: Startup = {
-        startupName: formValue.startupName,
-        startupFinances: formValue.startupFinances,
-        startupYouTubeLink: formValue.startupYouTubeLink,
-        startupShortDesc: formValue.startupShortDesc,
-        startupDescription: formValue.startupDescription,
-        startupHistory: formValue.startupHistory,
+        startupName: formValue.startupName as string,
+        startupFinances: formValue.startupFinances as string,
+        startupYouTubeLink: formValue.startupYouTubeLink as string,
+        startupShortDesc: formValue.startupShortDesc as string,
+        startupDescription: formValue.startupDescription as string,
+        startupHistory: formValue.startupHistory as string,
         authorUid: '',
         startupImage: '',
       };
       this.store.dispatch(
         submitStartup({
           startupData: startupData,
-          file: this.file,
+          file: this.file as File,
         })
       );
     }
   }
 
-  // isFormValid() {}
+  isFormValid(): boolean {
+    const formValue = this.startupForm.value;
+
+    return (
+      !!formValue &&
+      !!formValue.startupName &&
+      !!formValue.startupFinances &&
+      !!formValue.startupShortDesc &&
+      !!formValue.startupDescription &&
+      !!formValue.startupHistory &&
+      !!this.file
+    );
+  }
 }
