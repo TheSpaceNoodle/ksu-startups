@@ -46,7 +46,7 @@
 
     <div class="dropzone">
       <input
-        (change)="onFileUpload($event)"
+        (change)="onFileUpload($event.target)"
         type="file"
         placeholder="startupFile"
         accept="png, jpg"

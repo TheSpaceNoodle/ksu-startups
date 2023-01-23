@@ -33,12 +33,15 @@ export class SubmitStartupPageComponent implements OnInit {
     this.startupMessage$ = this.store.select(selectSubmitStartupMessage);
   }
 
-  onFileUpload(e: any) {
-    this.file = e.target.files[0];
+  onFileUpload(eTarget: EventTarget | null) {
+    const files = (eTarget as HTMLInputElement).files;
+
     if (
-      this.file &&
-      !(this.file.name.endsWith('.png') || this.file.name.endsWith('.jpg'))
+      files &&
+      (files[0].name.endsWith('.png') || files[0].name.endsWith('.jpg'))
     ) {
+      this.file = files[0];
+    } else {
       this.file = null;
     }
   }
