@@ -1,4 +1,4 @@
-<div [id]="showNav() ? 'app-container' : ''">
+<div [class]="showNav() ? 'app-container' : ''">
   <app-nav *ngIf="showNav()"></app-nav>
   <router-outlet></router-outlet>
 </div>

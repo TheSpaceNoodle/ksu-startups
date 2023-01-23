@@ -20,13 +20,11 @@ export interface Startup {
 
 export interface StartupsState {
   startups: Startup[];
-  loading: boolean;
   message: string | null;
 }
 
 const initialState: StartupsState = {
   startups: [],
-  loading: false,
   message: null,
 };
 

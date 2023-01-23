@@ -6,7 +6,7 @@
     ></app-card>
   </div>
   <div class="pagination">
-    <button (click)="previous()" [disabled]="currentPage == 0"><<</button>
+    <button (click)="previous()" [disabled]="currentPage === 0"><<</button>
     <button (click)="next()" [disabled]="isNextActive">>></button>
   </div>
 </div>

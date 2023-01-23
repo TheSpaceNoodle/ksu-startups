@@ -12,7 +12,6 @@ import { AppState } from 'src/app/state/app.state';
 })
 export class NavComponent implements OnInit {
   user$!: Observable<User | null>;
-  visible!: boolean;
   userChangerShown = false;
 
   constructor(private store: Store<AppState>) {}
@@ -22,8 +21,8 @@ export class NavComponent implements OnInit {
   }
 
   setRole(role: string, user: User) {
-    user = { ...user, activeRole: role };
-    this.store.dispatch(setRole({ user: user }));
+    const updatedUser = { ...user, activeRole: role };
+    this.store.dispatch(setRole({ user: updatedUser }));
     this.userChangerShown = false;
   }
 

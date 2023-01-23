@@ -19,11 +19,9 @@ export class UserEffects {
         from(this.authService.checkSignedUser()).pipe(
           map((user) => {
             if (user) {
-              /// User logged in
-              return logInSuccess({ user: user });
+              return logInSuccess({ user });
             } else {
-              /// User not logged in
-              return logInFailed({ error: 'failed' });
+              return logInFailed();
             }
           })
         )
@@ -44,7 +42,7 @@ export class UserEffects {
       switchMap(() =>
         from(this.authService.login()).pipe(
           map((user) => logInSuccess({ user: user })),
-          catchError((error) => of(logInFailed(error)))
+          catchError(() => of(logInFailed()))
         )
       )
     )

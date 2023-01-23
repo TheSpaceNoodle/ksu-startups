@@ -18,6 +18,10 @@ export class StartupsPageComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {}
 
+  ngOnInit(): void {
+    this.updateSelectedStartups();
+  }
+
   next() {
     this.currentPage += 1;
     this.updateSelectedStartups();
@@ -35,14 +39,10 @@ export class StartupsPageComponent implements OnInit {
           ? (this.isNextActive = true)
           : (this.isNextActive = false);
 
-        return this.currentPage == 0
+        return this.currentPage === 0
           ? data.slice(this.currentPage, this.currentPage + 10)
           : data.slice(this.currentPage * 11, this.currentPage * 11 + 10);
       })
     );
-  }
-
-  ngOnInit(): void {
-    this.updateSelectedStartups();
   }
 }

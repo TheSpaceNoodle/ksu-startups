@@ -1,9 +1,9 @@
-<div id="nav-container">
+<div class="nav-container">
   <ng-container *ngTemplateOutlet="(user$ | async) ? withUser : withoutUser">
   </ng-container>
 
   <ng-template #withoutUser>
-    <div id="nav">
+    <div class="nav">
       <a routerLink="/startups" routerLinkActive="active">
         <div class="dot dot-first"></div>
         Startups
@@ -24,17 +24,17 @@
 
   <ng-template #withUser>
     <ng-container *ngIf="user$ | async as user">
-      <div id="nav-usable">
-        <div id="user-info">
-          <div id="photo-container">
+      <div class="nav-usable">
+        <div class="user-info">
+          <div class="photo-container">
             <img src="{{ user.photoURL }}" alt="userPhoto" />
           </div>
-          <div id="user-text">
+          <div class="user-text">
             <h3>{{ user.displayName }}</h3>
             <p>{{ user.activeRole }}</p>
           </div>
         </div>
-        <div id="nav">
+        <div class="nav">
           <a routerLink="/startups" routerLinkActive="active">
             <div class="dot dot-first"></div>
             Startups
@@ -60,7 +60,7 @@
             <div class="dot dot-second"></div>
           </a>
         </div>
-        <div id="role-changer" *ngIf="userChangerShown">
+        <div class="role-changer" *ngIf="userChangerShown">
           <div class="button-container" *ngFor="let role of user.roles">
             <button
               *ngIf="role != user.activeRole"
@@ -69,12 +69,12 @@
               {{ role }}
             </button>
           </div>
-          <button id="log-out" (click)="logOut()">Log Out</button>
+          <button class="log-out" (click)="logOut()">Log Out</button>
         </div>
       </div>
     </ng-container>
   </ng-template>
-  <div id="nav-footer">
+  <div class="nav-footer">
     <p class="app-version">v 1.0.0</p>
     <button (click)="toggleUserChanger()" *ngIf="user$ | async">
       Change account

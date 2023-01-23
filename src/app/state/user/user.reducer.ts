@@ -18,14 +18,10 @@ export interface User {
 }
 export interface AuthState {
   user: User | null;
-  error: string | null;
-  loading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
-  error: null,
-  loading: false,
 };
 
 const _userReducer = createReducer(
@@ -36,13 +32,9 @@ const _userReducer = createReducer(
   on(logInSuccess, (state, { user }) => ({
     ...state,
     user: user,
-    loading: false,
-    error: null,
   })),
-  on(logInFailed, (state, { error }) => ({
+  on(logInFailed, (state) => ({
     ...state,
-    error: error,
-    loading: false,
   })),
   on(setRole, (state, { user }) => ({ ...state, user: user }))
 );

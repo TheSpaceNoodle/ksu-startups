@@ -29,7 +29,7 @@ export class StartupEffects {
       switchMap(() =>
         from(this.fsService.getAllStartups()).pipe(
           map((startups) => getAllStartupsSuccess({ startups: startups })),
-          catchError((err) => of(getAllStartupsFailed({ message: err })))
+          catchError((err) => [getAllStartupsFailed({ message: err })])
         )
       )
     )

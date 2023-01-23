@@ -11,9 +11,9 @@ import { AuthState, logIn } from 'src/app/state';
 export class AuthPageComponent implements OnInit {
   constructor(private store: Store<AuthState>) {}
 
+  ngOnInit(): void {}
+
   login() {
     this.store.dispatch(logIn());
   }
-
-  ngOnInit(): void {}
 }

@@ -10,10 +10,7 @@ export const logInSuccess = createAction(
   '[Auth Page] Log In Success',
   props<{ user: User | null }>()
 );
-export const logInFailed = createAction(
-  '[Auth Page] Log In Failed',
-  props<{ error: string }>()
-);
+export const logInFailed = createAction('[Auth Page] Log In Failed');
 
 export const setRole = createAction(
   '[App] Set User Role',

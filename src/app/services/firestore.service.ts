@@ -26,12 +26,10 @@ export class FirestoreService {
     return this.afStore.doc<User>(`users/${uid}`).valueChanges();
   }
 
-  approveStartup() {}
-
   async doUserExists(uid: string) {
     let userExists = false;
     await firstValueFrom(this.getUserData(uid).pipe(take(1))).then((data) => {
-      userExists = data != undefined;
+      userExists = data !== undefined;
     });
     return userExists;
   }

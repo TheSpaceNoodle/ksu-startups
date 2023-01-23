@@ -28,8 +28,8 @@ export class AuthService {
     });
   }
 
-  async setUserData(userDataInput: firebase.User) {
-    let exists = await this.fs.doUserExists(userDataInput.uid);
+  async setUserData(userDataInput: firebase.User): Promise<void> {
+    const exists = await this.fs.doUserExists(userDataInput.uid);
     if (userDataInput && !exists) {
       if (
         userDataInput.displayName &&
@@ -47,7 +47,7 @@ export class AuthService {
     }
   }
 
-  login() {
+  login(): Promise<User> {
     let userUid = '';
     return this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())

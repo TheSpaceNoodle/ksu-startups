@@ -2,12 +2,11 @@ import { NgModule } from '@angular/core';
 import {
   AngularFireAuthGuard,
   redirectLoggedInTo,
-  redirectUnauthorizedTo,
 } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 
 const redirectLoggedInToStartups = () => redirectLoggedInTo(['startups']);
-const redirectUnathorizedToHome = () => redirectUnauthorizedTo(['startups']);
+// const redirectUnathorizedToHome = () => redirectUnauthorizedTo(['startups']); ?
 
 const routes: Routes = [
   {
@@ -61,7 +60,6 @@ const routes: Routes = [
         (m) => m.SubmitStartupPageModule
       ),
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnathorizedToHome },
   },
 ];
 

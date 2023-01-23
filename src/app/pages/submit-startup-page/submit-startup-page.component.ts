@@ -2,9 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Startup, submitStartup } from 'src/app/state';
+import {
+  selectSubmitStartupMessage,
+  Startup,
+  submitStartup,
+} from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
-import { selectSubmitStartupMessage } from 'src/app/state/startups/startup.selectors';
 
 @Component({
   selector: 'app-submit-startup-page',
@@ -23,9 +26,12 @@ export class SubmitStartupPageComponent implements OnInit {
     startupDescription: new FormControl(''),
     startupHistory: new FormControl(''),
   });
-  formFilled = this.startupForm.valid;
 
   constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    this.startupMessage$ = this.store.select(selectSubmitStartupMessage);
+  }
 
   onFileUpload(e: any) {
     this.file = e.target.files[0];
@@ -38,23 +44,23 @@ export class SubmitStartupPageComponent implements OnInit {
   }
 
   onSubmit() {
-    let data = this.startupForm.value;
+    let formValue = this.startupForm.value;
     if (
-      data &&
-      data.startupName &&
-      data.startupFinances &&
-      data.startupShortDesc &&
-      data.startupDescription &&
-      data.startupHistory &&
+      formValue &&
+      formValue.startupName &&
+      formValue.startupFinances &&
+      formValue.startupShortDesc &&
+      formValue.startupDescription &&
+      formValue.startupHistory &&
       this.file
     ) {
-      let startupData: Startup = {
-        startupName: data.startupName,
-        startupFinances: data.startupFinances,
-        startupYouTubeLink: data.startupYouTubeLink,
-        startupShortDesc: data.startupShortDesc,
-        startupDescription: data.startupDescription,
-        startupHistory: data.startupHistory,
+      const startupData: Startup = {
+        startupName: formValue.startupName,
+        startupFinances: formValue.startupFinances,
+        startupYouTubeLink: formValue.startupYouTubeLink,
+        startupShortDesc: formValue.startupShortDesc,
+        startupDescription: formValue.startupDescription,
+        startupHistory: formValue.startupHistory,
         authorUid: '',
         startupImage: '',
       };
@@ -67,7 +73,5 @@ export class SubmitStartupPageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.startupMessage$ = this.store.select(selectSubmitStartupMessage);
-  }
+  // isFormValid() {}
 }
