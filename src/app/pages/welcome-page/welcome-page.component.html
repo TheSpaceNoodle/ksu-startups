@@ -1,7 +1,7 @@
 <nav>
   <ul>
-    <li><a href="#about-us">about us</a></li>
-    <li><a href="#partnership">partnership</a></li>
+    <li><a href="/welcome#about-us">about us</a></li>
+    <li><a href="/welcome#partnership">partnership</a></li>
     <li class="logo">
       <div>
         <p>KSU</p>
@@ -9,11 +9,11 @@
       </div>
       <img src="./assets/logo.svg" alt="" />
     </li>
-    <li><a href="#benefits">benefits</a></li>
-    <li><a href="#contacts">contacts</a></li>
+    <li><a href="/welcome#benefits">benefits</a></li>
+    <li><a href="/welcome#contacts">contacts</a></li>
   </ul>
 </nav>
-<header class="about-us">
+<header id="about-us">
   <div class="header-container">
     <h1>Place to find investors</h1>
     <div class="info">
@@ -48,23 +48,23 @@
   </div>
 </header>
 
-<section class="partnership">
+<section id="partnership">
   <div class="section-content">
-    <h1 class="heading">Partnership</h1>
+    <h2 class="heading">Partnership</h2>
     <app-partner
       *ngFor="let partner of partners | async"
       [partner]="partner"
     ></app-partner>
-    <h2>
+    <h3>
       Want to become our partner? Then
       <a href="#contacts" class="highlight">contact us</a>!
-    </h2>
+    </h3>
   </div>
 </section>
 
-<section class="benefits">
+<section id="benefits">
   <div class="section-content">
-    <h1 class="heading">Partnership</h1>
+    <h2 class="heading">Benefits</h2>
     <div class="benefit-list">
       <div class="benefit">
         <img src="./assets/icons/support.svg" alt="" />
@@ -83,28 +83,28 @@
   </div>
 </section>
 
-<section class="contacts">
+<section id="contacts">
   <div class="section-content">
-    <h1 class="heading">Contacts</h1>
+    <h2 class="heading">Contacts</h2>
     <div class="contacts-list">
       <div class="first">
         <a href="tel: +380963102636" class="contact">
           <img src="./assets/contacts/phone.svg" alt="phone" />
-          <p>+380963102636</p>
+          <span>+380963102636</span>
         </a>
         <a href="mailto: office@ksu.ks.ua" class="contact">
           <img src="./assets/contacts/email.svg" alt="email" />
-          <p>office@ksu.ks.ua</p>
+          <span>office@ksu.ks.ua</span>
         </a>
         <!-- <a href="https://github.com/SheogorathD" class="contact">
           <img src="./assets/contacts/github.svg" alt="github" />
-          <p>@SheogorathD</p>
+          <span>@SheogorathD</span>
         </a> -->
       </div>
       <div class="second">
         <a href="https://www.kspu.edu" class="contact">
           <img src="./assets/contacts/uni.svg" alt="university" />
-          <p>kspu.edu</p>
+          <span>kspu.edu</span>
         </a>
       </div>
     </div>

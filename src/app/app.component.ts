@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private store: Store) {}
 
   showNav() {
-    if (this.router.url === '/auth' || this.router.url === '/welcome')
+    if (this.router.url === '/auth' || this.router.url.includes('/welcome'))
       return false;
     return true;
   }

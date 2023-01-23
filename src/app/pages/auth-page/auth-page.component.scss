@@ -1,4 +1,4 @@
-#auth-page {
+.auth-page {
   height: 100vh;
   width: 100vw;
   background-color: #202f46;
@@ -9,11 +9,11 @@
   color: #fff;
   font-size: 32px;
 
-  h1 {
+  h2 {
     margin-bottom: 70px;
   }
 
-  #buttons {
+  .buttons {
     display: flex;
     gap: 80px;
 
