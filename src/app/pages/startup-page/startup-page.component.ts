@@ -13,7 +13,7 @@ import { selectStartup } from 'src/app/state/startups/startup.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StartupPageComponent implements OnInit {
-  startupData$!: Observable<Startup | undefined>;
+  startupData$!: Observable<Startup | null>;
 
   constructor(private router: Router, private store: Store<AppState>) {}
 

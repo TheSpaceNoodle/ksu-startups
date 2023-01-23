@@ -14,8 +14,10 @@ export const selectAllStartups = createSelector(
 );
 
 export const selectStartup = (props: { id: string }) =>
-  createSelector(selectStartups, (startupsState: StartupsState) =>
-    startupsState.startups.find(
+  createSelector(selectStartups, (startupsState: StartupsState) => {
+    const startup = startupsState.startups.find(
       (startup) => startup.authorUid + '&' + startup.startupName === props.id
-    )
-  );
+    );
+
+    return startup ? startup : null;
+  });
