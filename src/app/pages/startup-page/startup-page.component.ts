@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Startup } from 'src/app/state';
+import { Startup } from 'src/app/shared/models/startup.model';
 import { AppState } from 'src/app/state/app.state';
 import { selectStartup } from 'src/app/state/startups/startup.selectors';
 

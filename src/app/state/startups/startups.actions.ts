@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Startup } from './startups.reducer';
+import { Startup } from 'src/app/shared/models/startup.model';
 
 export const submitStartup = createAction(
   '[Submit Startup Page] Submit Startup',

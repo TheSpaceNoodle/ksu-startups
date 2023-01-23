@@ -12,8 +12,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './components/nav/nav.component';
-import { SharedModule } from './components/shared.module';
+import { NavComponent } from './shared/components/nav/nav.component';
+import { SharedModule } from './shared/components/shared.module';
 import { AppStoreModule } from './state/app-state.module';
 
 @NgModule({

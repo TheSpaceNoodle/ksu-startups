@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from './user.reducer';
+import { User } from 'src/app/shared/models/user.model';
 
 export const getUser = createAction('[App] Get User');
 

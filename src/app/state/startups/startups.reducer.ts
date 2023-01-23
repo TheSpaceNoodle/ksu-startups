@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { Startup } from 'src/app/shared/models/startup.model';
 import {
   getAllStartups,
   getAllStartupsFailed,
@@ -6,17 +7,6 @@ import {
   submitStartup,
   submitStartupSuccess,
 } from './startups.actions';
-
-export interface Startup {
-  startupName: string;
-  startupFinances: string;
-  startupYouTubeLink?: string;
-  startupShortDesc: string;
-  startupDescription: string;
-  startupHistory: string;
-  authorUid: string;
-  startupImage: string;
-}
 
 export interface StartupsState {
   startups: Startup[];

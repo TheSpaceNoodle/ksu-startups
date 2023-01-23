@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Partner } from 'src/app/shared/models/partner.model';
 import { AppState } from 'src/app/state/app.state';
-import { Partner } from 'src/app/state/partners/partners.reducer';
 import { selectPartners } from 'src/app/state/partners/partners.selectors';
 
 @Component({

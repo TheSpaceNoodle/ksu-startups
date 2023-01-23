@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Partner } from './partners.reducer';
+import { Partner } from 'src/app/shared/models/partner.model';
 
 export const getPartners = createAction(
   '[Partners Page] Retrieve All Partners'

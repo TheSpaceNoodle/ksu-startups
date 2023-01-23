@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { firstValueFrom, Observable, take } from 'rxjs';
-import { Startup, User } from '../state';
-import { Partner } from '../state/partners/partners.reducer';
+import { Partner } from 'src/app/shared/models/partner.model';
+import { Startup } from 'src/app/shared/models/startup.model';
+import { User } from 'src/app/shared/models/user.model';
 
 @Injectable({
   providedIn: 'root',

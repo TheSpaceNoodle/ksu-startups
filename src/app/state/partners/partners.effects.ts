@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { from, map, switchMap } from 'rxjs';
-import { FirestoreService } from 'src/app/services/firestore.service';
+import { FirestoreService } from 'src/app/shared/services/firestore.service';
 import { getPartners, getPartnersSuccess } from './partners.actions';
 
 @Injectable()

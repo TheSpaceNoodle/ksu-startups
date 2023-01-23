@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { Startup } from 'src/app/state';
+import { Startup } from 'src/app/shared/models/startup.model';
 import { AppState } from 'src/app/state/app.state';
 import { selectAllStartups } from 'src/app/state/startups/startup.selectors';
 

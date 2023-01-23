@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { User } from 'src/app/shared/models/user.model';
 import {
   getUser,
   logIn,
@@ -8,14 +9,6 @@ import {
   setRole,
 } from './user.actions';
 
-export interface User {
-  displayName: string | null;
-  email: string | null;
-  photoURL: string | null;
-  uid: string | null;
-  roles: string[] | null;
-  activeRole: string;
-}
 export interface AuthState {
   user: User | null;
 }

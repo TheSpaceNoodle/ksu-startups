@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { logOut, selectUserData, setRole, User } from 'src/app/state';
+import { User } from 'src/app/shared/models/user.model';
+import { logOut, selectUserData, setRole } from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({

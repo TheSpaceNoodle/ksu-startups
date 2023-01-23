@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Startup } from 'src/app/state';
+import { Startup } from 'src/app/shared/models/startup.model';
 
 @Component({
   selector: 'app-card',

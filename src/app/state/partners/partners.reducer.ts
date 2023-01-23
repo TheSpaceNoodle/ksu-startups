@@ -1,12 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { Partner } from 'src/app/shared/models/partner.model';
 import { getPartners, getPartnersSuccess } from './partners.actions';
-
-export interface Partner {
-  name: string;
-  position: string;
-  info: string;
-  imgUrl: string;
-}
 
 export interface PartnersState {
   partners: Partner[];
