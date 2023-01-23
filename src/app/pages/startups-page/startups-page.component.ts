@@ -15,6 +15,8 @@ export class StartupsPageComponent implements OnInit {
   startups$!: Observable<Startup[]>;
   currentPage = 0;
   isNextActive = true;
+  elementsPassed = this.currentPage * 11;
+  displayedStartupsAmount = 10;
 
   constructor(private store: Store<AppState>) {}
 
@@ -35,13 +37,19 @@ export class StartupsPageComponent implements OnInit {
   updateSelectedStartups() {
     this.startups$ = this.store.select(selectAllStartups).pipe(
       map((data) => {
-        data.length > this.currentPage * 11
+        data.length > this.elementsPassed
           ? (this.isNextActive = true)
           : (this.isNextActive = false);
 
         return this.currentPage === 0
-          ? data.slice(this.currentPage, this.currentPage + 10)
-          : data.slice(this.currentPage * 11, this.currentPage * 11 + 10);
+          ? data.slice(
+              this.currentPage,
+              this.currentPage + this.displayedStartupsAmount
+            )
+          : data.slice(
+              this.elementsPassed,
+              this.elementsPassed + this.displayedStartupsAmount
+            );
       })
     );
   }
