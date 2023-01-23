@@ -1,7 +1,4 @@
 <div class="nav-container">
-  <ng-container *ngTemplateOutlet="(user$ | async) ? withUser : withoutUser">
-  </ng-container>
-
   <ng-template #withoutUser>
     <div class="nav">
       <a routerLink="/startups" routerLinkActive="active">
@@ -20,65 +17,57 @@
         <div class="dot dot-second"></div>
       </a>
     </div>
+    <div class="nav-footer">
+      <p class="app-version">v 1.0.0</p>
+      <a routerLink="auth">LogIn</a>
+    </div>
   </ng-template>
 
-  <ng-template #withUser>
-    <ng-container *ngIf="user$ | async as user">
-      <div class="nav-usable">
-        <div class="user-info">
-          <div class="photo-container">
-            <img src="{{ user.photoURL }}" alt="userPhoto" />
-          </div>
-          <div class="user-text">
-            <h3>{{ user.displayName }}</h3>
-            <p>{{ user.activeRole }}</p>
-          </div>
+  <ng-container *ngIf="user$ | async as user; else withoutUser">
+    <div class="nav-usable">
+      <div class="user-info">
+        <div class="photo-container">
+          <img src="{{ user.photoURL }}" alt="userPhoto" />
         </div>
-        <div class="nav">
-          <a routerLink="/startups" routerLinkActive="active">
-            <div class="dot dot-first"></div>
-            Startups
-            <div class="dot dot-second"></div>
-          </a>
-          <a routerLink="/partners" routerLinkActive="active">
-            <div class="dot dot-first"></div>
-            Partners
-            <div class="dot dot-second"></div>
-          </a>
-          <a routerLink="/contacts" routerLinkActive="active">
-            <div class="dot dot-first"></div>
-            Contacts
-            <div class="dot dot-second"></div>
-          </a>
-          <a
-            routerLink="/submit-startup"
-            routerLinkActive="active"
-            *ngIf="user"
-          >
-            <div class="dot dot-first"></div>
-            Submit Startup
-            <div class="dot dot-second"></div>
-          </a>
-        </div>
-        <div class="role-changer" *ngIf="userChangerShown">
-          <div class="button-container" *ngFor="let role of user.roles">
-            <button
-              *ngIf="role != user.activeRole"
-              (click)="setRole(role, user)"
-            >
-              {{ role }}
-            </button>
-          </div>
-          <button class="log-out" (click)="logOut()">Log Out</button>
+        <div class="user-text">
+          <h3>{{ user.displayName }}</h3>
+          <p>{{ user.activeRole }}</p>
         </div>
       </div>
-    </ng-container>
-  </ng-template>
-  <div class="nav-footer">
-    <p class="app-version">v 1.0.0</p>
-    <button (click)="toggleUserChanger()" *ngIf="user$ | async">
-      Change account
-    </button>
-    <a routerLink="auth" *ngIf="!(user$ | async)">LogIn</a>
-  </div>
+      <div class="nav">
+        <a routerLink="/startups" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Startups
+          <div class="dot dot-second"></div>
+        </a>
+        <a routerLink="/partners" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Partners
+          <div class="dot dot-second"></div>
+        </a>
+        <a routerLink="/contacts" routerLinkActive="active">
+          <div class="dot dot-first"></div>
+          Contacts
+          <div class="dot dot-second"></div>
+        </a>
+        <a routerLink="/submit-startup" routerLinkActive="active" *ngIf="user">
+          <div class="dot dot-first"></div>
+          Submit Startup
+          <div class="dot dot-second"></div>
+        </a>
+      </div>
+      <div class="role-changer" *ngIf="userChangerShown">
+        <div class="button-container" *ngFor="let role of user.roles">
+          <button *ngIf="role != user.activeRole" (click)="setRole(role, user)">
+            {{ role }}
+          </button>
+        </div>
+        <button class="log-out" (click)="logOut()">Log Out</button>
+      </div>
+    </div>
+    <div class="nav-footer">
+      <p class="app-version">v 1.0.0</p>
+      <button (click)="toggleUserChanger()" *ngIf="user">Change account</button>
+    </div>
+  </ng-container>
 </div>
