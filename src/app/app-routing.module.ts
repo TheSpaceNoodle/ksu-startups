@@ -6,9 +6,15 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 
 const redirectLoggedInToStartups = () => redirectLoggedInTo(['startups']);
-// const redirectUnathorizedToHome = () => redirectUnauthorizedTo(['startups']); ?
 
 const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./pages/welcome-page/welcome-page.module').then(
+        (m) => m.WelcomePageModule
+      ),
+  },
   {
     path: 'welcome',
     loadChildren: () =>
@@ -24,13 +30,6 @@ const routes: Routes = [
       ),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToStartups },
-  },
-  {
-    path: '',
-    loadChildren: () =>
-      import('./pages/startups-page/startups-page.module').then(
-        (m) => m.StartupsPageModule
-      ),
   },
   {
     path: 'startups',
