@@ -26,6 +26,13 @@ const routes: Routes = [
     data: { authGuardPipe: redirectLoggedInToStartups },
   },
   {
+    path: '',
+    loadChildren: () =>
+      import('./pages/startups-page/startups-page.module').then(
+        (m) => m.StartupsPageModule
+      ),
+  },
+  {
     path: 'startups',
     loadChildren: () =>
       import('./pages/startups-page/startups-page.module').then(
