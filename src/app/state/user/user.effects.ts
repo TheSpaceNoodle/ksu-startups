@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, from, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import {
   getCurrentUser,
   logIn,
   logInFailed,
   logInSuccess,
-  logOut
+  logOut,
 } from './user.actions';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(getCurrentUser),
       switchMap(() =>
-        from(this.authService.checkSignedUser()).pipe(
+        this.authService.checkSignedUser().pipe(
           map((user) => {
             if (user) {
               return logInSuccess({ user });
@@ -32,7 +32,7 @@ export class UserEffects {
   logOut$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logOut),
-      switchMap(() => from(this.authService.logout()).pipe(map(() => logOut())))
+      switchMap(() => this.authService.logout().pipe(map(() => logOut())))
     )
   );
 
@@ -40,7 +40,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(logIn),
       switchMap(() =>
-        from(this.authService.login()).pipe(
+        this.authService.login().pipe(
           map((user) => logInSuccess({ user: user })),
           catchError(() => of(logInFailed()))
         )
