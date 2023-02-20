@@ -14,6 +14,7 @@ import { selectStartup } from 'src/app/state/startups/startup.selectors';
 })
 export class StartupPageComponent implements OnInit {
   startupData$!: Observable<Startup | null>;
+  isContactsShown = false;
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
@@ -21,5 +22,9 @@ export class StartupPageComponent implements OnInit {
     this.startupData$ = this.store.select(
       selectStartup({ id: this.router.url.replace('/startups/', '') })
     );
+  }
+
+  showContacts() {
+    this.isContactsShown = true;
   }
 }

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from 'src/app/shared/models/user.model';
 
-export const getUser = createAction('[App] Get User');
+export const getCurrentUser = createAction('[App] Get User');
 
 export const logOut = createAction('[Auth Page] Log Out');
 

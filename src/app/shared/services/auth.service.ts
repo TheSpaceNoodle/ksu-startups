@@ -10,8 +10,6 @@ import { FirestoreService } from './firestore.service';
   providedIn: 'root',
 })
 export class AuthService {
-  currentUserUid: string | null = null;
-
   constructor(
     private readonly auth: AngularFireAuth,
     private fs: FirestoreService,
@@ -21,7 +19,6 @@ export class AuthService {
   async checkSignedUser(): Promise<User | null> {
     return firstValueFrom(this.auth.user).then(async (data) => {
       if (data && data.uid) {
-        this.currentUserUid = data.uid;
         return (await firstValueFrom(this.fs.getUserData(data.uid))) as User;
       }
       return null;

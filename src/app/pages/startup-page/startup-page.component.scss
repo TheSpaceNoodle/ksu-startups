@@ -24,7 +24,7 @@
     }
   }
 
-  .card-text {
+  .card-body {
     padding: 10px;
 
     .highlight {
@@ -57,6 +57,22 @@
 
     p.short-description {
       line-break: anywhere;
+    }
+
+    .contacts {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      button {
+        height: 50px;
+        width: 250px;
+        background-color: #71a0eb;
+        border: none;
+        border-radius: 10px;
+        font-size: 30px;
+        cursor: pointer;
+      }
     }
   }
 }

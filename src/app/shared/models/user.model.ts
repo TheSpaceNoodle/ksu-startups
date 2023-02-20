@@ -1,8 +1,8 @@
 export interface User {
-  displayName: string | null;
-  email: string | null;
-  photoURL: string | null;
-  uid: string | null;
-  roles: string[] | null;
+  displayName: string;
+  email: string;
+  photoURL: string;
+  uid: string;
+  roles: string[];
   activeRole: string;
 }

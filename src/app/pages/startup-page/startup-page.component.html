@@ -4,7 +4,7 @@
       <div class="image-wrapper">
         <img src="{{ startupData.startupImage }}" alt="startup image" />
       </div>
-      <div class="card-text">
+      <div class="card-body">
         <div class="card-heading">
           <h3 class="card-capture">{{ startupData.startupName }}</h3>
           <p class="estimated-budget">
@@ -12,8 +12,16 @@
             <span class="highlight">${{ startupData.startupFinances }}</span>
           </p>
         </div>
+
         <p class="description">{{ startupData.startupDescription }}</p>
         <p class="history">{{ startupData.startupHistory }}</p>
+
+        <div class="contacts">
+          <button (click)="showContacts()" *ngIf="!isContactsShown">
+            Show contacts
+          </button>
+          <span *ngIf="isContactsShown">{{ startupData.authorEmail }}</span>
+        </div>
       </div>
     </div>
   </div>

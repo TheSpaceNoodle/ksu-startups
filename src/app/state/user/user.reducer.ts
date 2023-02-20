@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { User } from 'src/app/shared/models/user.model';
 import {
-  getUser,
+  getCurrentUser,
   logIn,
   logInFailed,
   logInSuccess,
@@ -19,7 +19,7 @@ const initialState: AuthState = {
 
 const _userReducer = createReducer(
   initialState,
-  on(getUser, (state) => ({ ...state, loading: true })),
+  on(getCurrentUser, (state) => ({ ...state, loading: true })),
   on(logOut, (state) => ({ ...initialState })),
   on(logIn, (state) => ({ ...state, loading: true })),
   on(logInSuccess, (state, { user }) => ({

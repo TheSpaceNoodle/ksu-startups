@@ -42,7 +42,6 @@ export class FirestoreService {
         (imageUrl) => {
           startupData = {
             ...startupData,
-            authorUid: this.uid,
             startupImage: imageUrl,
           };
           this.afStore

@@ -3,18 +3,18 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, from, map, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import {
-  getUser,
+  getCurrentUser,
   logIn,
   logInFailed,
   logInSuccess,
-  logOut,
+  logOut
 } from './user.actions';
 
 @Injectable()
 export class UserEffects {
-  getUser$ = createEffect(() =>
+  getCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getUser),
+      ofType(getCurrentUser),
       switchMap(() =>
         from(this.authService.checkSignedUser()).pipe(
           map((user) => {

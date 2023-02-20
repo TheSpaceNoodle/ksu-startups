@@ -3,7 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Startup } from 'src/app/shared/models/startup.model';
-import { selectSubmitStartupMessage, submitStartup } from 'src/app/state';
+import { User } from 'src/app/shared/models/user.model';
+import {
+  selectSubmitStartupMessage,
+  selectUserData,
+  submitStartup,
+} from 'src/app/state';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
@@ -14,6 +19,7 @@ import { AppState } from 'src/app/state/app.state';
 })
 export class SubmitStartupPageComponent implements OnInit {
   startupMessage$!: Observable<string | null>;
+  currentUser$!: Observable<User | null>;
   file: File | null = null;
   startupForm = new FormGroup({
     startupName: new FormControl(''),
@@ -28,6 +34,7 @@ export class SubmitStartupPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.startupMessage$ = this.store.select(selectSubmitStartupMessage);
+    this.currentUser$ = this.store.select(selectUserData);
   }
 
   onFileUpload(eTarget: EventTarget | null) {
@@ -43,7 +50,7 @@ export class SubmitStartupPageComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(uid: string, email: string) {
     const formValue = this.startupForm.value;
     if (this.isFormValid()) {
       const startupData: Startup = {
@@ -53,7 +60,8 @@ export class SubmitStartupPageComponent implements OnInit {
         startupShortDesc: formValue.startupShortDesc as string,
         startupDescription: formValue.startupDescription as string,
         startupHistory: formValue.startupHistory as string,
-        authorUid: '',
+        authorUid: uid,
+        authorEmail: email,
         startupImage: '',
       };
       this.store.dispatch(

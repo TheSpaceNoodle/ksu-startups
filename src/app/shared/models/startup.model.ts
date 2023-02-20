@@ -6,5 +6,6 @@ export interface Startup {
   startupDescription: string;
   startupHistory: string;
   authorUid: string;
+  authorEmail: string;
   startupImage: string;
 }

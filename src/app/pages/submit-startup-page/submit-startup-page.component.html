@@ -1,5 +1,8 @@
-<div class="container">
-  <form [formGroup]="startupForm" (ngSubmit)="onSubmit()">
+<div class="container" *ngIf="currentUser$ | async as currentUser">
+  <form
+    [formGroup]="startupForm"
+    (ngSubmit)="onSubmit(currentUser.uid, currentUser.email)"
+  >
     <div class="input-group">
       <input
         type="text"
