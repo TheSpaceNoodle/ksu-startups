@@ -16,8 +16,8 @@
         <p class="description">{{ startupData.startupDescription }}</p>
         <p class="history">{{ startupData.startupHistory }}</p>
 
-        <div class="contacts">
-          <button (click)="showContacts()" *ngIf="!isContactsShown">
+        <div class="contacts" *ngIf="activeRole$ | async as role">
+          <button (click)="showContacts()" *ngIf="(role === 'investor' || role === 'admin') && !isContactsShown">
             Show contacts
           </button>
           <span *ngIf="isContactsShown">{{ startupData.authorEmail }}</span>
